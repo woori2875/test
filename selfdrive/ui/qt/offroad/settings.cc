@@ -553,6 +553,12 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "If your car only supports LDWS, turn it on.",
                                             "../assets/offroad/icon_openpilot.png",
                                             this));
+  
+  toggles.append(new ParamControl("SmartMDPS",
+                                            "Use Smart MDPS",
+                                            "Turn On for car with smart mdps harness for steering down to 0 mph",
+                                            "../assets/offroad/icon_road.png",
+                                            this));
 
   toggles.append(new ParamControl("LaneChangeEnabled",
                                             "Enable Lane Change Assist",
