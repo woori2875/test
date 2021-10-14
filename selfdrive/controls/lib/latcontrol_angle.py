@@ -1,18 +1,13 @@
 import math
 from cereal import log
+from selfdrive.controls.lib.latcontrol import LatControl, MIN_STEER_SPEED
 
 
-class LatControlAngle():
-  def __init__(self, CP):
-    pass
-
-  def reset(self):
-    pass
-
-  def update(self, active, CS, CP, VM, params, desired_curvature, desired_curvature_rate):
+class LatControlAngle(LatControl):
+   def update(self, active, CS, CP, VM, params, desired_curvature, desired_curvature_rate):
     angle_log = log.ControlsState.LateralAngleState.new_message()
 
-    if CS.vEgo < 0.3 or not active:
+    if CS.vEgo < MIN_STEER_SPEED or not active:
       angle_log.active = False
       angle_steers_des = float(CS.steeringAngleDeg)
     else:

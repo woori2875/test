@@ -9,11 +9,11 @@
 #include "selfdrive/hardware/hw.h"
 
 QString getBrand() {
-  return Params().getBool("Passive") ? "dashcam" : "openpilot";
+  return Params().getBool("Passive") ? "dashcam" : "";
 }
 
 QString getBrandVersion() {
-  return getBrand() + " v" + QString::fromStdString(Params().get("Version")).left(14).trimmed();
+  return getBrand() + "" + QString::fromStdString(Params().get("Version")).left(14).trimmed();
 }
 
 std::optional<QString> getDongleId() {

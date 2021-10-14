@@ -67,6 +67,8 @@ class CarController():
     self.ldws_opt = Params().get_bool('IsLdwsCar')
     self.stock_navi_decel_enabled = Params().get_bool('StockNaviDecelEnabled')
 
+    self.lane_blink_on = False
+
     # gas_factor, brake_factor
     # Adjust it in the range of 0.7 to 1.3
     self.scc_smoother = SccSmoother()
@@ -88,7 +90,7 @@ class CarController():
     # Disable steering while turning blinker on and speed below 60 kph
     if CS.out.leftBlinker or CS.out.rightBlinker:
       self.turning_signal_timer = 0.5 / DT_CTRL  # Disable for 0.5 Seconds after blinker turned off
-    if self.turning_indicator_alert: # set and clear by interface
+    if self.turning_indicator_alert and CS.out.vEgo < 2 * CV.KPH_TO_MS: # set and clear by interface
       lkas_active = 0
     if self.turning_signal_timer > 0:
       self.turning_signal_timer -= 1
@@ -131,6 +133,13 @@ class CarController():
     self.prev_scc_cnt = CS.scc11["AliveCounterACC"]
 
     self.lkas11_cnt = (self.lkas11_cnt + 1) % 0x10
+
+    if self.scc_smoother.active_cam: 
+      if frame % 50 == 0:
+        self.lane_blink_on = not self.lane_blink_on
+      left_lane_warning = right_lane_warning = 3 # 1=핸들진동+차선표시, 2= 소리(계기판 동시) ,3=hud만 표시
+    else:
+      self.lane_blink_on = False
 
     can_sends = []
     can_sends.append(create_lkas11(self.packer, frame, self.car_fingerprint, apply_steer, lkas_active,

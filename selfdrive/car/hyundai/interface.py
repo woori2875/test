@@ -3,7 +3,7 @@
 from cereal import car
 from common.numpy_fast import interp
 from selfdrive.config import Conversions as CV
-from selfdrive.car.hyundai.values import CAR, Buttons, CarControllerParams
+from selfdrive.car.hyundai.values import CAR, Buttons, CarControllerParams, FEATURES
 from selfdrive.car import STD_CARGO_KG, scale_rot_inertia, scale_tire_stiffness, gen_empty_fingerprint, get_safety_config
 from selfdrive.car.interfaces import CarInterfaceBase
 from selfdrive.controls.lib.lateral_planner import LANE_CHANGE_SPEED_MIN
@@ -43,28 +43,26 @@ class CarInterface(CarInterfaceBase):
 
     ret.communityFeature = True
 
-    tire_stiffness_factor = 1.
+    tire_stiffness_factor = 0.85
     ret.maxSteeringAngleDeg = 1000.
 
     # lateral
-    ret.lateralTuning.init('lqr')
+    ret.lateralTuning.init('pid')
+    
+    ret.lateralTuning.pid.kf = 0.000038
+    ret.lateralTuning.pid.kpBP = [0., 14., 23.]
+    ret.lateralTuning.pid.kpV = [0.01, 0.065, 0.2]
+    ret.lateralTuning.pid.kiBP = [0., 14., 23.]
+    ret.lateralTuning.pid.kiV = [0.001, 0.015, 0.025]
+    ret.lateralTuning.pid.kdBP = [0., 14., 23.]
+    ret.lateralTuning.pid.kdV = [0.0, 0.0, 0.0]
+    ret.lateralTuning.pid.newKfTuned = True
+   
+    ret.steerActuatorDelay = 0.2
+    ret.steerRateCost = 0.7
+    ret.steerLimitTimer = 2.0
+    ret.steerRatio = 17.0
 
-    ret.lateralTuning.lqr.scale = 1700.
-    ret.lateralTuning.lqr.ki = 0.01
-    ret.lateralTuning.lqr.dcGain = 0.0028
-
-    ret.lateralTuning.lqr.a = [0., 1., -0.22619643, 1.21822268]
-    ret.lateralTuning.lqr.b = [-1.92006585e-04, 3.95603032e-05]
-    ret.lateralTuning.lqr.c = [1., 0.]
-    ret.lateralTuning.lqr.k = [-110., 451.]
-    ret.lateralTuning.lqr.l = [0.33, 0.318]
-
-    ret.steerRatio = 16.5
-    ret.steerActuatorDelay = 0.1
-    ret.steerLimitTimer = 2.5
-    ret.steerRateCost = 0.4
-    ret.steerMaxBP = [0.]
-    ret.steerMaxV = [1.5]
 
     # longitudinal
     ret.longitudinalTuning.kpBP = [0., 10.*CV.KPH_TO_MS, 20.*CV.KPH_TO_MS, 40.*CV.KPH_TO_MS, 70.*CV.KPH_TO_MS, 100.*CV.KPH_TO_MS, 130.*CV.KPH_TO_MS]
@@ -73,6 +71,8 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.kiV = [0.06, 0.03]
     ret.longitudinalTuning.deadzoneBP = [0., 100.*CV.KPH_TO_MS]
     ret.longitudinalTuning.deadzoneV = [0., 0.015]
+    ret.longitudinalTuning.kdBP = [0., 4., 9., 17., 23., 31.]
+    ret.longitudinalTuning.kdV = [0.7, 0.65, 0.5, 0.4, 0.3, 0.2]
     ret.longitudinalActuatorDelayLowerBound = 0.15
     ret.longitudinalActuatorDelayUpperBound = 0.15
 

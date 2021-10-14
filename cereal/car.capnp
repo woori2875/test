@@ -200,14 +200,13 @@ struct CarState {
   cluSpeedMs @38 :Float32;
   cruiseGap @39 : Int32;
   autoHold @40 : Int32;
-  tpms @41 : Tpms;
 
-  struct Tpms {
-    fl @0 :Float32;
-    fr @1 :Float32;
-    rl @2 :Float32;
-    rr @3 :Float32;
-  }
+  currentGear @41 :Float32;
+  # tpms
+  tpmsFl @42 :Float32;
+  tpmsFr @43 :Float32;
+  tpmsRl @44 :Float32;
+  tpmsRr @45 :Float32;
 
   struct WheelSpeeds {
     # optional wheel speeds
@@ -498,6 +497,9 @@ struct CarParams {
     kiBP @2 :List(Float32);
     kiV @3 :List(Float32);
     kf @4 :Float32;
+    kdBP @5 :List(Float32) = [0.];
+    kdV @6 :List(Float32) = [0.];
+    newKfTuned @7 :Bool;
   }
 
   struct LongitudinalPIDTuning {
@@ -507,6 +509,8 @@ struct CarParams {
     kiV @3 :List(Float32);
     deadzoneBP @4 :List(Float32);
     deadzoneV @5 :List(Float32);
+    kdBP @6 :List(Float32) = [0.];
+    kdV @7 :List(Float32) = [0.];
   }
 
   struct LateralINDITuning {

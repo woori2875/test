@@ -54,6 +54,7 @@ def manager_init():
     ("ShowDebugUI", "0"),
     ("DisableOpFcw", "0"),
     ("CustomLeadMark", "0"),
+    ("IsOpenpilotViewEnabled", "0"),
     ("NewRadarInterface", "0"),
   ]
   if not PC:

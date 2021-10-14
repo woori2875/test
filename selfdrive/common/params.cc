@@ -164,6 +164,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"IsTakingSnapshot", CLEAR_ON_MANAGER_START},
     {"IsUpdateAvailable", CLEAR_ON_MANAGER_START},
     {"JoystickDebugMode", CLEAR_ON_MANAGER_START | CLEAR_ON_IGNITION_OFF},
+    {"LanelessMode", PERSISTENT},
     {"LastAthenaPingTime", CLEAR_ON_MANAGER_START},
     {"LastGPSPosition", PERSISTENT},
     {"LastUpdateException", PERSISTENT},
@@ -229,6 +230,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"CustomLeadMark", PERSISTENT},
 
     {"SoftRestartTriggered", CLEAR_ON_MANAGER_START},
+    {"IsOpenpilotViewEnabled", CLEAR_ON_MANAGER_START},
 };
 
 } // namespace
