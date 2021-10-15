@@ -33,6 +33,21 @@ private:
   void getUserKeys(const QString &username);
 };
 
+// LateralControlSelect
+class LateralControlSelect : public AbstractControl {
+  Q_OBJECT
+
+public:
+  LateralControlSelect();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+
+  void refresh();
+};
+
 // openpilot Preview
 class OpenpilotView : public AbstractControl {
   Q_OBJECT
