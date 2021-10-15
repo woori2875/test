@@ -318,6 +318,8 @@ QWidget * network_panel(QWidget * parent) {
   // SSH key management
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
+  list->addItem(new LateralControlSelect());
+  list->addItem(horizontal_line());
 
   layout->addWidget(list);
   layout->addStretch(1);
