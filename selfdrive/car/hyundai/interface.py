@@ -51,18 +51,18 @@ class CarInterface(CarInterfaceBase):
     if Params().get("LateralControlSelect", encoding='utf8') == "0":
       if candidate in [CAR.GENESIS, CAR.GENESIS_G70, CAR.GENESIS_G80, CAR.GENESIS_G90, CAR.GENESIS_EQ900]:
           ret.lateralTuning.pid.kf = 0.000038
-          ret.lateralTuning.pid.kpBP = [0., 14., 23.]
+          ret.lateralTuning.pid.kpBP = [0., 10., 30.]
           ret.lateralTuning.pid.kpV = [0.01, 0.065, 0.2]
-          ret.lateralTuning.pid.kiBP = [0., 14., 23.]
-          ret.lateralTuning.pid.kiV = [0.001, 0.015, 0.025]
-          ret.lateralTuning.pid.kdBP = [0., 14., 23.]
-          ret.lateralTuning.pid.kdV = [0.0, 0.0, 0.0]
+          ret.lateralTuning.pid.kiBP = [0., 30.]
+          ret.lateralTuning.pid.kiV = [0.02, 0.02]
+          ret.lateralTuning.pid.kdBP = [0.]
+          ret.lateralTuning.pid.kdV = [1.]
           ret.lateralTuning.pid.newKfTuned = True
           
           ret.steerActuatorDelay = 0.2
-          ret.steerRateCost = 0.7
+          ret.steerRateCost = 0.5
           ret.steerLimitTimer = 2.0
-          ret.steerRatio = 16.5
+          ret.steerRatio = 16.2
       else:
           ret.lateralTuning.pid.kf = 0.00005
           ret.lateralTuning.pid.kpBP = [0.]
@@ -88,7 +88,7 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.indi.actuatorEffectivenessV = [2.3]
           
           ret.steerActuatorDelay = 0.2
-          ret.steerRateCost = 0.7
+          ret.steerRateCost = 0.5
           ret.steerLimitTimer = 2.0
           ret.steerRatio = 16.5
       else:
