@@ -680,8 +680,7 @@ static void bb_ui_draw_measures_right(UIState *s, int bb_x, int bb_y, int bb_w )
   nvgStroke(s->vg);*/
 }
 
-static void bb_ui_draw_basic_info(UIState *s)
-{
+static void bb_ui_draw_basic_info(UIState *s) {
     const UIScene *scene = &s->scene;
     char str[1024];
     std::string sccLogMessage = "";
@@ -725,8 +724,7 @@ static void bb_ui_draw_basic_info(UIState *s)
     ui_draw_text(s, x, y, str, 21 * 2.5, COLOR_WHITE_ALPHA(180), "sans-semibold");
 }
 
-static void bb_ui_draw_debug(UIState *s)
-{
+static void bb_ui_draw_debug(UIState *s) {
     const UIScene *scene = &s->scene;
     char str[1024];
 
@@ -837,8 +835,7 @@ static void draw_currentgear(UIState *s)
   }
 }
 
-static void bb_ui_draw_UI(UIState *s)
-{
+static void bb_ui_draw_UI(UIState *s) {
   const int bb_dml_w = 180;
   const int bb_dml_x = bdr_is * 2;
   const int bb_dml_y = (box_y + (bdr_is * 1.5)) + 270 + 20;//UI_FEATURE_LEFT_Y;
@@ -905,7 +902,6 @@ static void ui_draw_vision_scc_gap(UIState *s) {
 
   ui_draw_text(s, center_x, center_y-36, "", 22 * 2.5f, nvgRGBA(255, 255, 255, 200), "sans-bold");
   ui_draw_text(s, center_x, center_y+22, str, textSize * 2.5f, textColor, "sans-bold");
-
 }
 
 static void ui_draw_vision_brake(UIState *s) {
@@ -944,7 +940,6 @@ static void ui_draw_vision_autohold(UIState *s) {
 }
 
 static void ui_draw_vision_maxspeed(UIState *s) {
-
   // scc smoother
   cereal::CarControl::SccSmoother::Reader scc_smoother = s->scene.car_control.getSccSmoother();
   bool longControl = scc_smoother.getLongControl();
@@ -962,26 +957,22 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
   const int text_x = rect.centerX();
 
-  if(is_cruise_set)
-  {
+  if (is_cruise_set) {
     char str[256];
-
-    if(s->scene.is_metric)
+    if (s->scene.is_metric)
         snprintf(str, sizeof(str), "%d", (int)(applyMaxSpeed + 0.5));
     else
         snprintf(str, sizeof(str), "%d", (int)(applyMaxSpeed*0.621371 + 0.5));
 
     ui_draw_text(s, text_x, 98+bdr_s, str, 33 * 2.5, COLOR_WHITE, "sans-semibold");
 
-    if(s->scene.is_metric)
+    if (s->scene.is_metric)
         snprintf(str, sizeof(str), "%d", (int)(cruiseMaxSpeed + 0.5));
     else
         snprintf(str, sizeof(str), "%d", (int)(cruiseMaxSpeed*0.621371 + 0.5));
 
     ui_draw_text(s, text_x, 192+bdr_s, str, 48 * 2.5, COLOR_WHITE, "sans-bold");
-  }
-  else
-  {
+  } else {
     if(longControl)
         ui_draw_text(s, text_x, 98+bdr_s, "OP", 25 * 2.5, COLOR_WHITE_ALPHA(100), "sans-semibold");
     else
