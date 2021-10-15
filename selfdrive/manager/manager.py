@@ -47,7 +47,7 @@ def manager_init():
     ("IsLdwsCar", "0"),
     ("LaneChangeEnabled", "0"),
     ("AutoLaneChangeEnabled", "0"),
-    ("SmartMDPS", "1"),
+
     ("SccSmootherSlowOnCurves", "0"),
     ("SccSmootherSyncGasPressed", "0"),
     ("StockNaviDecelEnabled", "0"),
