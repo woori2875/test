@@ -151,6 +151,7 @@ typedef struct UIScene {
 
   mat3 view_from_calib;
   bool world_objects_visible;
+  int lateralControlSelect;
 //깜박이 추가
   bool leftBlinker;
   bool rightBlinker;
