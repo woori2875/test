@@ -34,11 +34,12 @@ int main(int argc, char *argv[]) {
 
   QPushButton *btn = new QPushButton();
 #ifdef __aarch64__
+  QPushButton *btn2 = new QPushButton();
   btn->setText("Reboot");
   QObject::connect(btn, &QPushButton::clicked, [=]() {
     Hardware::reboot();
   });
-  btn->setText("Git Pull");
+  btn2->setText("Git Pull");
   QObject::connect(btn, &QPushButton::clicked, [=]() {
     //QProcess::execute("sh /data/openpilot/publickey.sh");
     QProcess::execute("sh /data/openpilot/gitpull.sh");
