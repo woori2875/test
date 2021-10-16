@@ -103,7 +103,7 @@ class opParams:
                         'lat_f_multiplier': Param(1., NUMBER, 'Multiplier for your existing feedforward gain. 1 is default', live=True),
                        
     #self._to_delete = ['enable_long_derivative']  # a list of unused params you want to delete from users' params file
-    #self._to_reset = []  # a list of params you want reset to their default values
+    self._to_reset = []  # a list of params you want reset to their default values
     self._run_init()  # restores, reads, and updates params
 
   def _run_init(self):  # does first time initializing of default params
