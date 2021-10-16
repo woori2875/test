@@ -73,7 +73,7 @@ class CarInterface(CarInterfaceBase):
           ret.steerActuatorDelay = 0.2
           ret.steerRateCost = 0.6
           ret.steerLimitTimer = 2.0
-          ret.steerRatio = 16.5
+          ret.steerRatio = 16.2
     # ---INDI
     elif Params().get("LateralControlSelect", encoding='utf8') == "1":
       if candidate in [CAR.GENESIS, CAR.GENESIS_EQ900]:
