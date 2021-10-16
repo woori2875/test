@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
     //QProcess::execute("sh /data/openpilot/publickey.sh");
     QProcess::execute("sh /data/openpilot/gitpull.sh");
     Hardware::reboot();
-    btn2->setEnabled(false);
+   // btn2->setEnabled(false);
   });
   main_layout->addWidget(btn2, 0, 0, Qt::AlignLeft | Qt::AlignBottom);
 #else
