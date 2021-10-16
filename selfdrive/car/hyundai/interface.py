@@ -49,7 +49,7 @@ class CarInterface(CarInterfaceBase):
     
     # ---PID
     if Params().get("LateralControlSelect", encoding='utf8') == "0":
-      if candidate in [CAR.GENESIS, CAR.GENESIS_G70, CAR.GENESIS_G80, CAR.GENESIS_G90, CAR.GENESIS_EQ900]:
+      if candidate in [CAR.GENESIS, CAR.GENESIS_G80, CAR.GENESIS_EQ900]:
           ret.lateralTuning.pid.kf = 0.000038
           ret.lateralTuning.pid.kpBP = [0., 10., 30.]
           ret.lateralTuning.pid.kpV = [0.01, 0.065, 0.2]
@@ -109,7 +109,7 @@ class CarInterface(CarInterfaceBase):
   
     # -----------------LQR
     elif Params().get("LateralControlSelect", encoding='utf8') == "2":
-      if candidate in [CAR.GENESIS, CAR.GENESIS_G70, CAR.GENESIS_G80, CAR.GENESIS_G90, CAR.GENESIS_EQ900]:
+      if candidate in [CAR.GENESIS, CAR.GENESIS_G80, CAR.GENESIS_EQ900]:
           ret.lateralTuning.init('lqr')
           ret.lateralTuning.lqr.scale = 1650.
           ret.lateralTuning.lqr.ki = 0.01
