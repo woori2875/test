@@ -87,7 +87,7 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.indi.actuatorEffectivenessBP = [0.]
           ret.lateralTuning.indi.actuatorEffectivenessV = [2.3]
           
-          ret.steerActuatorDelay = 0.2
+          ret.steerActuatorDelay = 0.1
           ret.steerRateCost = 0.5
           ret.steerLimitTimer = 2.0
           ret.steerRatio = 16.5
@@ -120,7 +120,7 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.lqr.k = [-110.73572306, 451.22718255]
           ret.lateralTuning.lqr.l = [0.3233671, 0.3185757]
            
-          ret.steerRatio = 16.5
+          ret.steerRatio = 14.8
           ret.steerActuatorDelay = 0.1
           ret.steerLimitTimer = 2.5
           ret.steerRateCost = 0.5
@@ -142,7 +142,7 @@ class CarInterface(CarInterfaceBase):
           ret.steerRateCost = 0.4
     # -------------------END
     ret.steerMaxBP = [0.]
-    ret.steerMaxV = [2.0]
+    ret.steerMaxV = [1.5]
   
     # longitudinal
     ret.longitudinalTuning.kpBP = [0., 10.*CV.KPH_TO_MS, 20.*CV.KPH_TO_MS, 40.*CV.KPH_TO_MS, 70.*CV.KPH_TO_MS, 100.*CV.KPH_TO_MS, 130.*CV.KPH_TO_MS]
