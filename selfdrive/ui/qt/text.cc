@@ -4,6 +4,7 @@
 #include <QScrollBar>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QProcess>
 
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/util.h"
@@ -37,8 +38,8 @@ int main(int argc, char *argv[]) {
   QObject::connect(btn, &QPushButton::clicked, [=]() {
     Hardware::reboot();
   });
-  btn2->setText("Git Pull");
-  QObject::connect(btn2, &QPushButton::clicked, [=]() {
+  btn->setText("Git Pull");
+  QObject::connect(btn, &QPushButton::clicked, [=]() {
     //QProcess::execute("sh /data/openpilot/publickey.sh");
     QProcess::execute("sh /data/openpilot/gitpull.sh");
     Hardware::reboot();
