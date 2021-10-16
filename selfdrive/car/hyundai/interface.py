@@ -71,7 +71,7 @@ class CarInterface(CarInterfaceBase):
           ret.lateralTuning.pid.kiV = [0.05]
           
           ret.steerActuatorDelay = 0.2
-          ret.steerRateCost = 0.7
+          ret.steerRateCost = 0.6
           ret.steerLimitTimer = 2.0
           ret.steerRatio = 16.5
     # ---INDI
