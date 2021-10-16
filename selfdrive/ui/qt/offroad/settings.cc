@@ -320,6 +320,19 @@ QWidget * network_panel(QWidget * parent) {
   list->addItem(new SshControl());
   list->addItem(new LateralControlSelect());
   list->addItem(horizontal_line());
+  
+  // add
+  const char* gitpull = "sh /data/openpilot/gitpull.sh";
+  //auto gitpullbtn = new ButtonControl("Git Fetch and Reset", "RUN");
+  auto gitpullbtn = new ButtonControl("Git Fetch and Reset", "실행");
+  QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
+    //if (ConfirmationDialog::confirm("Process?", w)){
+    if (ConfirmationDialog::confirm("실행하시겠습니까?", w)){
+      std::system(gitpull);
+      QTimer::singleShot(1000, []() { Hardware::reboot(); });
+    }
+  });
+  list->addItem(gitpullbtn);
 
   layout->addWidget(list);
   layout->addStretch(1);
