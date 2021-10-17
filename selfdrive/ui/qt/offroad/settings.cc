@@ -323,7 +323,7 @@ QWidget * network_panel(QWidget * parent) {
   
   // add
   const char* gitpull = "sh /data/openpilot/gitpull.sh";
-  auto gitpullbtn = new ButtonControl("Git Pull and Reset", "실행");
+  auto gitpullbtn = new ButtonControl("GitPull and Reboot", "실행");
   QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
     if (ConfirmationDialog::confirm("실행하시겠습니까?", w)){
       std::system(gitpull);
