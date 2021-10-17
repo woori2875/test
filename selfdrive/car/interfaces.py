@@ -162,9 +162,9 @@ class CarInterfaceBase():
         events.add(EventName.pcmDisable)
 
     # 장푸 오토 인게이지
-    #if cs_out.cruiseState.enabled:
-    #  if cs_out.gearShifter == GearShifter.drive and cs_out.vEgo > 5. * CV.KPH_TO_MS:
-    #    events.add(EventName.pcmEnable)
+    if cs_out.cruiseState.enabled:
+      if cs_out.gearShifter == GearShifter.drive and cs_out.vEgo > 5. * CV.KPH_TO_MS and self.sm['liveCalibration'].calStatus != Calibration.UNCALIBRATED:
+        events.add(EventName.pcmEnable)
 
     return events
 
