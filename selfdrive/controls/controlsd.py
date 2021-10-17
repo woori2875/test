@@ -200,6 +200,11 @@ class Controls:
     self.rk = Ratekeeper(100, print_delay_threshold=None)
     self.prof = Profiler(False)  # off by default
 
+  def auto_enable(self, CS):
+    if self.state != State.enabled and CS.vEgo >= self.auto_enable_speed * CV.KPH_TO_MS and CS.gearShifter == 2 and self.sm['liveCalibration'].calStatus != Calibration.UNCALIBRATED:
+      if self.sm.all_alive_and_valid() and self.enabled != self.controlsAllowed:
+        self.events.add( EventName.pcmEnable )
+ 
   def update_events(self, CS):
     """Compute carEvents from carState"""
 
