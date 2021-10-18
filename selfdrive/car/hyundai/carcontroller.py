@@ -66,6 +66,7 @@ class CarController():
     self.mad_mode_enabled = Params().get_bool('MadModeEnabled')
     self.ldws_opt = Params().get_bool('IsLdwsCar')
     self.stock_navi_decel_enabled = Params().get_bool('StockNaviDecelEnabled')
+    self.NDA_camera = Params().get_bool('NDACamera')
 
     self.lane_blink_on = False
 
@@ -134,12 +135,13 @@ class CarController():
 
     self.lkas11_cnt = (self.lkas11_cnt + 1) % 0x10
 
-    if self.scc_smoother.active_cam: 
-      if frame % 50 == 0:
-        self.lane_blink_on = not self.lane_blink_on
-      left_lane_warning = right_lane_warning = 3 # 1=핸들진동+차선표시, 2= 소리(계기판 동시) ,3=hud만 표시
-    else:
-      self.lane_blink_on = False
+    if self.NDA_camera:
+      if self.scc_smoother.active_cam: 
+        if frame % 50 == 0:
+          self.lane_blink_on = not self.lane_blink_on
+        left_lane_warning = right_lane_warning = 1 # 1핸들진동,깜빡임. 2는 차로 소리(계기판) 3은 허드에서만
+      else:
+        self.lane_blink_on = False 
 
     can_sends = []
     can_sends.append(create_lkas11(self.packer, frame, self.car_fingerprint, apply_steer, lkas_active,
