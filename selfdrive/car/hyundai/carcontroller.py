@@ -139,7 +139,7 @@ class CarController():
       if self.scc_smoother.active_cam: 
         if frame % 50 == 0:
           self.lane_blink_on = not self.lane_blink_on
-        left_lane_warning = right_lane_warning = 1 # 1핸들진동,깜빡임. 2는 차로 소리(계기판) 3은 허드에서만
+        left_lane_warning = right_lane_warning = 3 # 1핸들진동,깜빡임. 2는 차로 소리(계기판) 3은 허드에서만
       else:
         self.lane_blink_on = False 
 
