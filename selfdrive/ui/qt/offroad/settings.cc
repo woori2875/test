@@ -614,6 +614,12 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "",
                                             "../assets/offroad/icon_shell.png",
                                             this));
+  
+  toggles.append(new ParamControl("NDACamera",
+                                            "NDA 카메라경고",
+                                            "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
+                                            "../assets/offroad/icon_shell.png"
+                                            ));
 
   toggles.append(new ParamControl("CustomLeadMark",
                                             "Use custom lead mark",
