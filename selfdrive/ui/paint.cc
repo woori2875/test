@@ -810,28 +810,26 @@ static void bb_ui_draw_debug(UIState *s) {
     ui_draw_text(s, text_x, y, str, 22 * 2.5, textColor, "sans-regular");
 }
 
-static void draw_currentgear(UIState *s)  
+static void bb_ui_draw_cgear(UIState *s)  
 {  
   const UIScene *scene = &s->scene; 
-  char strGear[512];
-  int ngetGearShifter = int(s->scene.getGearShifter); 
-  // char strShifter[512];
 
-  const int radius = 96;
-  const int center_x = (radius / 2) + (bdr_s * 2) - 20;
-  const int center_y = s->fb_h + (radius / 2) - footer_h / 2 + (bdr_s * 1.) -40;
-       
+  int x = (bdr_s * 2);
+  int y = s->fb_h;
+  int x_gear = x+210;
+  int y_gear = y-157;
+	
+  char strGear[32];
+  int  ngetGearShifter = int(s->scene.getGearShifter);
   snprintf(strGear, sizeof(strGear), "%.0f", s->scene.currentGear);
-  if ((s->scene.currentGear < 9) && (s->scene.currentGear !=0)) {
-    ui_draw_text(s, center_x, center_y, strGear, 25 * 8., COLOR_WHITE, "sans-bold");
-  } else if (s->scene.currentGear == 14 ) {
-    ui_draw_text(s, center_x, center_y, "R", 25 * 8., COLOR_RED, "sans-bold");
-  } else if (ngetGearShifter == 1 ) {
-    ui_draw_text(s, center_x, center_y, "P", 25 * 8., COLOR_WHITE, "sans-bold");
-  } else if (ngetGearShifter == 3 ) {
-    ui_draw_text(s, center_x, center_y, "N", 25 * 8., COLOR_WHITE, "sans-semibold");
-  } else {
-    ui_draw_text(s, center_x, center_y, "", 25 * 8., COLOR_WHITE, "sans-bold");
+  if ((s->scene.currentGear < 9) && (s->scene.currentGear !=0)) { 
+    ui_draw_text(s, x_gear, y_gear, strGear, 25 * 8., COLOR_WHITE, "sans-semibold");
+  } else if (s->scene.currentGear == 14 ) { 
+    ui_draw_text(s, x_gear, y_gear, "R", 25 * 8., COLOR_RED, "sans-semibold");
+  } else if (ngetGearShifter == 1 ) { 
+    ui_draw_text(s, x_gear, y_gear, "P", 25 * 8., COLOR_WHITE, "sans-semibold");
+  } else if (ngetGearShifter == 3 ) {  
+    ui_draw_text(s, x_gear, y_gear, "N", 25 * 8., COLOR_WHITE, "sans-semibold");
   }
 }
 
@@ -856,7 +854,9 @@ static void bb_ui_draw_UI(UIState *s) {
 #endif
 
   bb_ui_draw_basic_info(s);
-
+	
+  if(s->show_cgear_ui) 
+    bb_ui_draw_cgear(s);
   if(s->show_debug_ui)
     bb_ui_draw_debug(s);
 }
@@ -1313,7 +1313,7 @@ static void ui_draw_vision_header(UIState *s) {
   ui_draw_vision_event(s);
   ui_draw_vision_lane_change_ready(s);
   bb_ui_draw_UI(s);
-  draw_currentgear(s);
+  //draw_currentgear(s);
   ui_draw_extras(s);
 	
   if (s->scene.end_to_end) {
