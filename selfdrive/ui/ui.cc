@@ -238,7 +238,8 @@ static void update_params(UIState *s) {
     scene.is_metric = params.getBool("IsMetric");
     scene.is_OpenpilotViewEnabled = params.getBool("IsOpenpilotViewEnabled");  
     s->show_debug_ui = params.getBool("ShowDebugUI");
-	s->custom_lead_mark = params.getBool("CustomLeadMark");
+    s->show_cgear_ui = params.getBool("ShowCgearUI");  
+    s->custom_lead_mark = params.getBool("CustomLeadMark");
   }
 }
 
@@ -284,10 +285,10 @@ static void update_extras(UIState *s)
     scene.brakeLights = data.getBrakeLights();
    //
     if(scene.leftBlinker!=data.getLeftBlinker() || scene.rightBlinker!=data.getRightBlinker())
-      scene.blinker_blinkingrate = 120;
+    scene.blinker_blinkingrate = 120;
     scene.leftBlinker = data.getLeftBlinker();
     scene.rightBlinker = data.getRightBlinker();
-	scene.currentGear = data.getCurrentGear();
+    //scene.currentGear = data.getCurrentGear();
     scene.getGearShifter = data.getGearShifter();
     //
     //bsd
