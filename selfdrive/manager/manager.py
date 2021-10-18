@@ -39,6 +39,7 @@ def manager_init():
     ("OpenpilotEnabledToggle", "1"),
     ("CommunityFeaturesToggle", "1"),
     ("IsMetric", "1"),
+    ("LanelessMode", "0"),
 
     # HKG
     ("UseClusterSpeed", "1"),
@@ -48,7 +49,6 @@ def manager_init():
     ("LaneChangeEnabled", "0"),
     ("AutoLaneChangeEnabled", "0"),
     ("LateralControlSelect", "0"),
-    ("LanelessMode", "0"),
 
     ("SccSmootherSlowOnCurves", "0"),
     ("SccSmootherSyncGasPressed", "0"),
