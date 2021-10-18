@@ -621,6 +621,12 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "../assets/offroad/icon_shell.png"
                                             ));
 
+  toggles.append(new ParamControl("ShowCgearUI",
+                                            "주행기어단수 보기",
+                                            "기어레버 위치와 기어단수를 볼수 있습니다..",
+                                            "../assets/offroad/icon_shell.png"
+                                            ));
+  
   toggles.append(new ParamControl("CustomLeadMark",
                                             "Use custom lead mark",
                                             "",
