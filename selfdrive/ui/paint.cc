@@ -816,8 +816,8 @@ static void bb_ui_draw_cgear(UIState *s)
 
   int x = (bdr_s * 2);
   int y = s->fb_h;
-  int x_gear = x+210-210;
-  int y_gear = y-157+30;
+  int x_gear = x+210-210+30;
+  int y_gear = y-157+28;
 	
   char strGear[32];
   int  ngetGearShifter = int(s->scene.getGearShifter);
