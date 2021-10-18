@@ -230,6 +230,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"ShowDebugUI", PERSISTENT},
     {"CustomLeadMark", PERSISTENT},
     {"NDACamera", PERSISTENT},
+    {"ShowCgearUI", PERSISTENT},
     {"SoftRestartTriggered", CLEAR_ON_MANAGER_START},
     {"IsOpenpilotViewEnabled", CLEAR_ON_MANAGER_START},
 };
