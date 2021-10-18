@@ -910,6 +910,8 @@ FEATURES = {
                    CAR.SELTOS, CAR.KONA_EV, CAR.KONA_HEV, CAR.TUCSON_TL_SCC, CAR.ELANTRA_2021, CAR.ELANTRA_HEV_2021,
                    CAR.K9, CAR.GENESIS_G90, CAR.NIRO_HEV_2021, CAR.SANTA_FE_2022, CAR.K5_2021},
 
+  # HDA
+  "has_hda": {CAR.GENESIS_EQ900, CAR.GENESIS_EQ900_L, CAR.GRANDEUR_IG}, 
   "send_hda_state_2": {CAR.GENESIS_G80, CAR.GENESIS_EQ900, CAR.GENESIS_EQ900_L},
 
   # these cars use the FCA11 message for the AEB and FCW signals, all others use SCC12
