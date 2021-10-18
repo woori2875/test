@@ -58,6 +58,7 @@ def manager_init():
     ("CustomLeadMark", "0"),
     ("IsOpenpilotViewEnabled", "0"),
     ("NewRadarInterface", "0"),
+    ("NDACamera", "1"),
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
