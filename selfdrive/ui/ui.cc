@@ -288,7 +288,7 @@ static void update_extras(UIState *s)
     scene.blinker_blinkingrate = 120;
     scene.leftBlinker = data.getLeftBlinker();
     scene.rightBlinker = data.getRightBlinker();
-    //scene.currentGear = data.getCurrentGear();
+    scene.currentGear = data.getCurrentGear();
     scene.getGearShifter = data.getGearShifter();
     //
     //bsd
