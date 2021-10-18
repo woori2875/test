@@ -165,7 +165,7 @@ typedef struct UIScene {
   bool rightblindspot;
   int blindspot_blinkingrate = 120;
   int car_valid_status_changed = 0;
-  float currentGear;
+ // float currentGear;
   cereal::CarState::GearShifter getGearShifter;
 
 //bsd
@@ -242,6 +242,7 @@ typedef struct UIState {
 
   //
   bool show_debug_ui, custom_lead_mark;
+  bool show_cgear_ui;
   TouchState touch;
   int lock_on_anim_index;
 
