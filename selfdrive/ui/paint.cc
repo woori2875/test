@@ -694,12 +694,15 @@ static void bb_ui_draw_basic_info(UIState *s) {
     auto controls_state = (*s->sm)["controlsState"].getControlsState();
     auto car_params = (*s->sm)["carParams"].getCarParams();
     auto live_params = (*s->sm)["liveParameters"].getLiveParameters();
+	
+    int lateralControlState = controls_state.getLateralControlSelect();
+    const char* lateral_state[] = {"PID", "INDI", "LQR"};
 
     //int mdps_bus = scene->car_params.getMdpsBus();
     int scc_bus = scene->car_params.getSccBus();
 
-    snprintf(str, sizeof(str), "(SR%.2f)(SRC%.2f)(SAD%.2f)(%d)(A%.2f/B%.2f/C%.2f/D%.2f/%.2f)%s%s",
-
+    snprintf(str, sizeof(str), "[ %s ](SR%.2f)(SRC%.2f)(SAD%.2f)(%d)(A%.2f/B%.2f/C%.2f/D%.2f/%.2f)%s%s",
+                        lateral_state[lateralControlState],
                         //live_params.getAngleOffsetDeg(),
                         //live_params.getAngleOffsetAverageDeg(),
                         controls_state.getSteerRatio(),
