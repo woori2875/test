@@ -1,9 +1,16 @@
 #!/usr/bin/bash
 
 cd /data/openpilot
-echo -n "0" > /data/params/d/PutPrebuilt
-rm -f prebuilt
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-git fetch --all
-REMOTE_HASH=$(git rev-parse --short --verify origin/$BRANCH)
-git reset --hard $REMOTE_HASH 
+HASH=$(git rev-parse HEAD)
+git fetch
+REMOTE_HASH=$(git rev-parse --verify origin/$BRANCH)
+git pull
+
+if [ "$HASH" != "$REMOTE_HASH" ]; then
+  if [ -f "/data/openpilot/prebuilt" ]; then
+    pkill -f thermald
+    rm -f /data/openpilot/prebuilt
+  fi
+  sleep 5s
+fi
