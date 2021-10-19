@@ -71,7 +71,7 @@ class CarInterface(CarInterfaceBase):
           ret.steerActuatorDelay = 0.12
           ret.steerRateCost = 0.5
           ret.steerLimitTimer = 2.0
-          ret.steerRatio = 14.8
+          ret.steerRatio = 14.6 #고정
     
     # ---------------INDI
     elif Params().get("LateralControlSelect", encoding='utf8') == "1":
