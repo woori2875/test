@@ -50,23 +50,23 @@ class CarInterface(CarInterfaceBase):
     # -------------PID
     if Params().get("LateralControlSelect", encoding='utf8') == "0":
       if candidate in [CAR.GENESIS, CAR.GENESIS_G80, CAR.GENESIS_EQ900]:
-          #ret.lateralTuning.pid.kf = 0.000036
-          #ret.lateralTuning.pid.kpBP = [0., 10., 30.]
-          #ret.lateralTuning.pid.kpV = [0.01, 0.06, 0.18]
-          #ret.lateralTuning.pid.kiBP = [0., 30.]
-          #ret.lateralTuning.pid.kiV = [0.018, 0.02]
-          #ret.lateralTuning.pid.kdBP = [0.]
-          #ret.lateralTuning.pid.kdV = [1.]
-          #ret.lateralTuning.pid.newKfTuned = True
-          
-          ret.lateralTuning.pid.kf = 0.00004085
-          ret.lateralTuning.pid.kpBP = [9., 16., 32.]
-          ret.lateralTuning.pid.kpV = [0.165, 0.088, 0.0531]
-          ret.lateralTuning.pid.kiBP = [9., 16., 32.]
-          ret.lateralTuning.pid.kiV = [0.041, 0.022, 0.013]
+          ret.lateralTuning.pid.kf = 0.000035
+          ret.lateralTuning.pid.kpBP = [0., 10., 30.]
+          ret.lateralTuning.pid.kpV = [0.01, 0.06, 0.18]
+          ret.lateralTuning.pid.kiBP = [0., 30.]
+          ret.lateralTuning.pid.kiV = [0.018, 0.02]
           ret.lateralTuning.pid.kdBP = [0.]
-          ret.lateralTuning.pid.kdV = [0.]
+          ret.lateralTuning.pid.kdV = [1.]
           ret.lateralTuning.pid.newKfTuned = True
+          
+          #ret.lateralTuning.pid.kf = 0.00004085
+          #ret.lateralTuning.pid.kpBP = [9., 16., 32.]
+          #ret.lateralTuning.pid.kpV = [0.165, 0.088, 0.0531]
+          #ret.lateralTuning.pid.kiBP = [9., 16., 32.]
+          #ret.lateralTuning.pid.kiV = [0.041, 0.022, 0.013]
+          #ret.lateralTuning.pid.kdBP = [0.]
+          #ret.lateralTuning.pid.kdV = [0.]
+          #ret.lateralTuning.pid.newKfTuned = True
           
           ret.steerActuatorDelay = 0.12
           ret.steerRateCost = 0.5
