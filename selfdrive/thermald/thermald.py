@@ -427,7 +427,7 @@ def thermald_thread():
       if off_ts is None:
         off_ts = sec_since_boot()
         
-    prebuiltfile = '/data/openpilot/prebuilt'let = params.get_bool("PutPrebuilt")
+    prebuiltfile = params.get_bool("PutPrebuilt")
     if not os.path.isfile(prebuiltfile) and prebuiltlet:
       os.system("cd /data/openpilot; touch prebuilt")
     elif os.path.isfile(prebuiltfile) and not prebuiltlet:
