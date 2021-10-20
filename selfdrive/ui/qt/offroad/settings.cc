@@ -617,7 +617,7 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   
   toggles.append(new ParamControl("PutPrebuilt", "Prebuilt Enable",
                                             "Prebuilt 파일을 생성하며 부팅속도를 향상시킵니다.",
-                                            "../assets/offroad/icon_addon.png", 
+                                            "../assets/offroad/icon_shell.png", 
                                             this));
   
   toggles.append(new ParamControl("NDACamera",
