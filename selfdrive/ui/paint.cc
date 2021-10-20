@@ -1125,8 +1125,8 @@ static void ui_draw_vision_event(UIState *s) {
 static void ui_draw_vision_lane_change_ready(UIState *s) {
   if ((*s->sm)["controlsState"].getControlsState().getEnabled() && (*s->sm)["carState"].getCarState().getVEgo() >= 15.2777777778) {
     const int radius = 90;
-    const int center_x = s->fb_w - radius - (bdr_s * 2) - 5;
-    const int center_y = radius  + (bdr_s * 1.5) + 625;
+    const int center_x = s->fb_w - radius - bdr_s * 2;
+    const int center_y = radius  + (bdr_s * 1.5) + 635;
     //const QColor &color = bg_colors[s->status];
     //NVGcolor nvg_color = nvgRGBA(color.red(), color.green(), color.blue(), color.alpha());
     ui_draw_circle_image(s, center_x, center_y, radius, "lane_change_ready", 1.0f);
