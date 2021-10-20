@@ -615,6 +615,11 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "../assets/offroad/icon_shell.png",
                                             this));
   
+  toggles.append(new ParamControl("PutPrebuilt", "Prebuilt Enable",
+                                            "Prebuilt 파일을 생성하며 부팅속도를 향상시킵니다.",
+                                            "../assets/offroad/icon_addon.png", 
+                                            this));
+  
   toggles.append(new ParamControl("NDACamera",
                                             "NDA 카메라경고",
                                             "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
