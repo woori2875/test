@@ -183,10 +183,6 @@ function launch {
 
   # write tmux scrollback to a file
   tmux capture-pane -pq -S-1000 > /tmp/launch_log
-  
-  if [ -f "$BASEDIR/prebuilt" ]; then
-    python /data/openpilot/common/spinner.py &
-  fi
 
   python ./selfdrive/car/hyundai/values.py > /data/params/d/SupportedCars
 
