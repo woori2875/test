@@ -49,7 +49,7 @@ def manager_init():
     ("LaneChangeEnabled", "0"),
     ("AutoLaneChangeEnabled", "0"),
     ("LateralControlSelect", "0"),
-    ("PutPrebuilt", "0"),
+
     ("SccSmootherSlowOnCurves", "0"),
     ("SccSmootherSyncGasPressed", "0"),
     ("StockNaviDecelEnabled", "0"),
