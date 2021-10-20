@@ -25,7 +25,7 @@ class CarInterface(CarInterfaceBase):
     v_current_kph = current_speed * CV.MS_TO_KPH
 
     gas_max_bp = [0., 10., 20., 50., 70., 130.]
-    gas_max_v = [1.8, 1.15, 0.87, 0.63, 0.45, 0.33]
+    gas_max_v = [1.9, 1.29, 0.97, 0.63, 0.45, 0.3]
     #gas_max_v = [2., 1.3, 0.9, 0.63, 0.4, 0.17]
 
     brake_max_bp = [0, 70., 130.]
