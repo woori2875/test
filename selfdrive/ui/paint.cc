@@ -1383,9 +1383,6 @@ static void ui_draw_vision(UIState *s) {
   if (scene->world_objects_visible) {
     ui_draw_world(s);
   }
-  if (scene->kr_date_show || scene->kr_time_show) {
-    draw_kr_date_time(s);
-  }
   // Set Speed, Current Speed, Status/Events
   ui_draw_vision_header(s);
 //bsd
@@ -1393,6 +1390,7 @@ static void ui_draw_vision(UIState *s) {
     ui_draw_vision_scc_gap(s);
     ui_draw_tpms(s);
     ui_draw_gps(s);
+    ui_draw_kr_date_time(s);
     //ui_draw_vision_brake(s);
     //ui_draw_vision_autohold(s);
 }
