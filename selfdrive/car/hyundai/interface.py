@@ -24,10 +24,8 @@ class CarInterface(CarInterfaceBase):
 
     v_current_kph = current_speed * CV.MS_TO_KPH
 
-    gas_max_bp = [0., 10., 20., 40., 60., 80, 100., 130.]
-    gas_max_v = [1.4, 1.2, 1., 0.8, 0.55, 0.45, 0.33, 0.15]
-    #gas_max_bp = [0., 10., 20., 50., 70., 130.]
-    #gas_max_v = [1.9, 1.29, 0.97, 0.63, 0.45, 0.3]
+    gas_max_bp = [0., 10., 20., 50., 70., 130.]
+    gas_max_v = [2.1, 1.4, 1.0, 0.63, 0.45, 0.3]
     
     brake_max_bp = [0, 70., 130.]
     brake_max_v = [CarControllerParams.ACCEL_MIN, -3.2, -2.3]
@@ -115,15 +113,14 @@ class CarInterface(CarInterfaceBase):
     ret.steerMaxV = [1.5]
 
     # longitudinal
-    ret.longitudinalTuning.kpBP = [0, 10. * CV.KPH_TO_MS, 20. * CV.KPH_TO_MS, 40. * CV.KPH_TO_MS, 70. * CV.KPH_TO_MS,
-                                   100. * CV.KPH_TO_MS, 130. * CV.KPH_TO_MS]
-    ret.longitudinalTuning.kpV = [1.2, 1., 0.7, 0.6, 0.4, 0.3, 0.2]
-    ret.longitudinalTuning.kiBP = [0., 30. * CV.KPH_TO_MS, 60. * CV.KPH_TO_MS, 100. * CV.KPH_TO_MS]
-    ret.longitudinalTuning.kiV = [0.013, 0.0138, 0.0145, 0.013]
-    ret.longitudinalTuning.deadzoneBP = [0., 100. * CV.KPH_TO_MS]
-    ret.longitudinalTuning.deadzoneV = [0., 0.015]
+    ret.longitudinalTuning.kpBP = [0., 10.*CV.KPH_TO_MS, 20.*CV.KPH_TO_MS, 40.*CV.KPH_TO_MS, 70.*CV.KPH_TO_MS, 100.*CV.KPH_TO_MS, 130.*CV.KPH_TO_MS]
+    #ret.longitudinalTuning.kpV = [1.1, 0.8, 0.65, 0.57, 0.48, 0.4, 0.32]
+    ret.longitudinalTuning.kpV = [1.2, 0.91, 0.77, 0.7, 0.61, 0.53, 0.44]
+    ret.longitudinalTuning.kiBP = [0., 130. * CV.KPH_TO_MS]
+    ret.longitudinalTuning.kiV = [0.06, 0.03]
+    ret.longitudinalTuning.deadzoneBP = [0., 100.*CV.KPH_TO_MS]
     ret.longitudinalTuning.kdBP = [0., 10.*CV.KPH_TO_MS, 20.*CV.KPH_TO_MS, 40.*CV.KPH_TO_MS, 70.*CV.KPH_TO_MS, 100.*CV.KPH_TO_MS, 130.*CV.KPH_TO_MS]
-    ret.longitudinalTuning.kdV = [0.7, 0.65, 0.5, 0.4, 0.3, 0.2, 0.15]
+    ret.longitudinalTuning.kdV = [0.6, 0.55, 0.4, 0.3, 0.2, 0.1, 0.05]
     ret.longitudinalActuatorDelayLowerBound = 0.15
     ret.longitudinalActuatorDelayUpperBound = 0.15
 
