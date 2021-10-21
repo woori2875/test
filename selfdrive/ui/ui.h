@@ -159,7 +159,9 @@ typedef struct UIScene {
   int blinker_blinkingrate;
   bool brakePress;
   bool brakeLights;
-//깜박이 추가 종료  
+//깜박이 추가 종료 
+  bool kr_date_show;
+  bool kr_time_show;
 //bsd
   bool leftblindspot;
   bool rightblindspot;
