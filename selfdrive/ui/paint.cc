@@ -1383,7 +1383,7 @@ static void ui_draw_vision(UIState *s) {
   if (scene->world_objects_visible) {
     ui_draw_world(s);
   }
-  if ((scene->kr_date_show || scene->kr_time_show) {
+  if (scene->kr_date_show || scene->kr_time_show) {
     draw_kr_date_time(s);
   }
   // Set Speed, Current Speed, Status/Events
