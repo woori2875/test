@@ -236,6 +236,8 @@ static void update_params(UIState *s) {
   if (frame % (5*UI_FREQ) == 0) {
     Params params;
     scene.is_metric = params.getBool("IsMetric");
+    scene.kr_date_show = params.getBool("KRDateShow");
+    scene.kr_time_show = params.getBool("KRTimeShow");  
     scene.is_OpenpilotViewEnabled = params.getBool("IsOpenpilotViewEnabled");  
     s->show_debug_ui = params.getBool("ShowDebugUI");
     s->show_cgear_ui = params.getBool("ShowCgearUI");  
