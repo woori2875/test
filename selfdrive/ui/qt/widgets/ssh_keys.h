@@ -33,41 +33,6 @@ private:
   void getUserKeys(const QString &username);
 };
 
-//date
-class KRDateToggle : public ToggleControl {
-  Q_OBJECT
-
-public:
-  KRDateToggle() : ToggleControl("주행화면 날짜 표시", "주행화면에 현재 날짜를 표시합니다.", "../assets/offroad/icon_shell.png", Params().getBool("KRDateShow")) {
-    QObject::connect(this, &KRDateToggle::toggleFlipped, [=](int state) {
-      bool status = state ? true : false;
-      Params().putBool("KRDateShow", status);
-      if (state) {
-        QUIState::ui_state.scene.kr_date_show = true;
-      } else {
-        QUIState::ui_state.scene.kr_date_show = false;
-      }
-    });
-  }
-};
-
-class KRTimeToggle : public ToggleControl {
-  Q_OBJECT
-
-public:
-  KRTimeToggle() : ToggleControl("주행화면 시간 표시", "주행화면에 현재 시간을 표시합니다.", "../assets/offroad/icon_shell.png", Params().getBool("KRTimeShow")) {
-    QObject::connect(this, &KRTimeToggle::toggleFlipped, [=](int state) {
-      bool status = state ? true : false;
-      Params().putBool("KRTimeShow", status);
-      if (state) {
-        QUIState::ui_state.scene.kr_time_show = true;
-      } else {
-        QUIState::ui_state.scene.kr_time_show = false;
-      }
-    });
-  }
-};
-
 // LateralControlSelect
 class LateralControlSelect : public AbstractControl {
   Q_OBJECT
