@@ -1,8 +1,6 @@
 #include "selfdrive/ui/qt/home.h"
 
-#include <QDate>
-#include <QTime>
-#include <QLocale>
+#include <QDateTime>
 #include <QHBoxLayout>
 #include <QMouseEvent>
 #include <QVBoxLayout>
@@ -180,10 +178,7 @@ void OffroadHome::hideEvent(QHideEvent *event) {
 }
 
 void OffroadHome::refresh() {
-  QLocale::setDefault(QLocale::Korean);
-  QString date_kr = QDate::currentDate().toString(Qt::DefaultLocaleLongDate);
-  QString time_kr = QTime::currentTime().toString(Qt::DefaultLocaleShortDate);
-  date->setText(date_kr + " " + time_kr);
+  date->setText(QDateTime::currentDateTime().toString("yyyy년 M월 d일"));
 
   bool updateAvailable = update_widget->refresh();
   int alerts = alerts_widget->refresh();
