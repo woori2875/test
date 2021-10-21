@@ -319,8 +319,6 @@ QWidget * network_panel(QWidget * parent) {
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
   list->addItem(new LateralControlSelect());
-  list->addItem(new KRDateToggle());
-  list->addItem(new KRTimeToggle());
   list->addItem(horizontal_line());
   
   // add
