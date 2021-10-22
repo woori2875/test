@@ -160,7 +160,6 @@ typedef struct UIScene {
   bool brakePress;
   bool brakeLights;
 //깜박이 추가 종료 
-  bool kr_date_time;
 //bsd
   bool leftblindspot;
   bool rightblindspot;
