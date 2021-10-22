@@ -15,8 +15,8 @@
 #define NANOVG_GLES3_IMPLEMENTATION
 #include <nanovg_gl.h>
 #include <nanovg_gl_utils.h>
-#include <time.h> 
-#include <string>
+//#include <time.h> 
+//#include <string>
 #include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/ui.h"
@@ -1254,48 +1254,6 @@ static void ui_draw_vision_car(UIState *s) { //image designd by" Park byeoung kw
   }
 //bsd
 
-// draw date/time
-void draw_kr_date_time(UIState *s) {
-  int rect_w = 600;
-  const int rect_h = 50;
-  int rect_x = s->fb_w/2 - rect_w/2;
-  const int rect_y = 0;
-  char dayofweek[50];
-
-  // Get local time to display
-  time_t t = time(NULL);
-  struct tm tm = *localtime(&t);
-  char now[50];
-  if (tm.tm_wday == 0) {
-    strcpy(dayofweek, "SUN");
-  } else if (tm.tm_wday == 1) {
-    strcpy(dayofweek, "MON");
-  } else if (tm.tm_wday == 2) {
-    strcpy(dayofweek, "TUE");
-  } else if (tm.tm_wday == 3) {
-    strcpy(dayofweek, "WED");
-  } else if (tm.tm_wday == 4) {
-    strcpy(dayofweek, "THU");
-  } else if (tm.tm_wday == 5) {
-    strcpy(dayofweek, "FRI");
-  } else if (tm.tm_wday == 6) {
-    strcpy(dayofweek, "SAT");
-  }
-  snprintf(now,sizeof(now),"%04d-%02d-%02d %s %02d:%02d:%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, dayofweek, tm.tm_hour, tm.tm_min, tm.tm_sec);
-  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_TOP);
-  nvgBeginPath(s->vg);
-  nvgRoundedRect(s->vg, rect_x, rect_y, rect_w, rect_h, 0);
-  nvgFillColor(s->vg, nvgRGBA(0, 0, 0, 0));
-  nvgFill(s->vg);
-  nvgStrokeColor(s->vg, nvgRGBA(255,255,255,0));
-  nvgStrokeWidth(s->vg, 0);
-  nvgStroke(s->vg);
-
-  nvgFontSize(s->vg, 50);
-  nvgFillColor(s->vg, nvgRGBA(255, 255, 255, 200));
-  nvgText(s->vg, s->fb_w/2, rect_y, now, NULL);
-}
-
 //tpms
 static void ui_draw_tpms(UIState *s) {
   int viz_tpms_w = 140;
@@ -1382,7 +1340,6 @@ static void ui_draw_vision(UIState *s) {
     ui_draw_vision_scc_gap(s);
     ui_draw_tpms(s);
     ui_draw_gps(s);
-    ui_draw_kr_date_time(s);
     //ui_draw_vision_brake(s);
     //ui_draw_vision_autohold(s);
 }
