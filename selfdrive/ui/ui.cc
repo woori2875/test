@@ -239,7 +239,8 @@ static void update_params(UIState *s) {
     scene.is_OpenpilotViewEnabled = params.getBool("IsOpenpilotViewEnabled");  
     s->show_debug_ui = params.getBool("ShowDebugUI");
     s->show_cgear_ui = params.getBool("ShowCgearUI");  
-    s->custom_lead_mark = params.getBool("CustomLeadMark");
+    s->custom_lead_mark = params.getBool("CustomLeadMark");  
+    scene.kr_date_time = data.kr_date_time();   
   }
 }
 
@@ -289,8 +290,7 @@ static void update_extras(UIState *s)
     scene.leftBlinker = data.getLeftBlinker();
     scene.rightBlinker = data.getRightBlinker();
     scene.currentGear = data.getCurrentGear();
-    scene.getGearShifter = data.getGearShifter();
-    scene.kr_date_time = data.kr_date_time();   
+    scene.getGearShifter = data.getGearShifter(); 
     //
     //bsd
     scene.leftblindspot = data.getLeftBlindspot();
