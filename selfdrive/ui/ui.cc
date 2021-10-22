@@ -235,9 +235,7 @@ static void update_params(UIState *s) {
   UIScene &scene = s->scene;
   if (frame % (5*UI_FREQ) == 0) {
     Params params;
-    scene.is_metric = params.getBool("IsMetric");
-    scene.kr_date_show = params.getBool("KRDateShow");
-    scene.kr_time_show = params.getBool("KRTimeShow");  
+    scene.is_metric = params.getBool("IsMetric");  
     scene.is_OpenpilotViewEnabled = params.getBool("IsOpenpilotViewEnabled");  
     s->show_debug_ui = params.getBool("ShowDebugUI");
     s->show_cgear_ui = params.getBool("ShowCgearUI");  
@@ -292,6 +290,7 @@ static void update_extras(UIState *s)
     scene.rightBlinker = data.getRightBlinker();
     scene.currentGear = data.getCurrentGear();
     scene.getGearShifter = data.getGearShifter();
+    scene.kr_date_time = data.kr_date_time();   
     //
     //bsd
     scene.leftblindspot = data.getLeftBlindspot();
