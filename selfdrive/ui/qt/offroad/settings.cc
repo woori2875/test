@@ -48,11 +48,11 @@ TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
                                   "Steer Actuator Delay 보간 적용",
                                   "../assets/offroad/icon_road.png",
                                   this));
-  addItem(new ParamControl("IsRHD",
+  /*addItem(new ParamControl("IsRHD",
                                   "Enable Right-Hand Drive",
                                   "Allow openpilot to obey left-hand traffic conventions and perform driver monitoring on right driver seat.",
                                   "../assets/offroad/icon_openpilot_mirrored.png",
-                                  this));
+                                  this));*/
   addItem(new ParamControl("IsMetric",
                                   "Use Metric System",
                                   "Display speed in km/h instead of mph.",
