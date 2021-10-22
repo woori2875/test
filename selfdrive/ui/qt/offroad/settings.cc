@@ -43,6 +43,11 @@ TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
                                   "Receive alerts to steer back into the lane when your vehicle drifts over a detected lane line without a turn signal activated while driving over 31mph (50kph).",
                                   "../assets/offroad/icon_warning.png",
                                   this));
+  addItem(new ParamControl("SteerActuatorDelay",
+                                  "Steer Actuator Delay \U0001f96d",
+                                  "Steer Actuator Delay 보간 적용",
+                                  "../assets/offroad/icon_road.png",
+                                  this));
   addItem(new ParamControl("IsRHD",
                                   "Enable Right-Hand Drive",
                                   "Allow openpilot to obey left-hand traffic conventions and perform driver monitoring on right driver seat.",
