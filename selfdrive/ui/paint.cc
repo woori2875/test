@@ -1385,7 +1385,7 @@ static void ui_draw_vision(UIState *s) {
   }
   // Set Speed, Current Speed, Status/Events
   ui_draw_vision_header(s);
-  if ((scene->kr_date_show || scene->kr_time_show) {
+  if (scene->kr_date_show || scene->kr_time_show) {
     draw_kr_date_time(s);
   }
   //bsd
