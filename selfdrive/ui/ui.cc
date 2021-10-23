@@ -233,16 +233,20 @@ static void update_state(UIState *s) {
 static void update_params(UIState *s) {
   const uint64_t frame = s->sm->frame;
   UIScene &scene = s->scene;
+  Params params;
   if (frame % (5*UI_FREQ) == 0) {
-    Params params;
     scene.is_metric = params.getBool("IsMetric");  
     scene.is_OpenpilotViewEnabled = params.getBool("IsOpenpilotViewEnabled");  
     s->show_debug_ui = params.getBool("ShowDebugUI");
     s->show_cgear_ui = params.getBool("ShowCgearUI");  
     s->custom_lead_mark = params.getBool("CustomLeadMark");     
   }
+  if (!scene.read_params_once) {
+    scene.kr_date_show = params.getBool("KRDateShow");
+    scene.kr_time_show = params.getBool("KRTimeShow");  
+    scene.read_params_once = true;  
+  }
 }
-
 static void update_status(UIState *s) {
   if (s->scene.started && s->sm->updated("controlsState")) {
     auto controls_state = (*s->sm)["controlsState"].getControlsState();
