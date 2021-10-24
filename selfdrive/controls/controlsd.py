@@ -489,13 +489,13 @@ class Controls:
     # Update VehicleModel
     params = self.sm['liveParameters']
     x = max(params.stiffnessFactor, 0.1)
-    #sr = max(params.steerRatio, 0.1)
+    sr = max(params.steerRatio, 0.1)
 
-    #if ntune_common_enabled('useLiveSteerRatio'):
-    #  sr = max(params.steerRatio, 0.1)
-    #else:
-    #  sr = max(ntune_common_get('steerRatio'), 0.1)
-    sr = interp(self.steeringAngleDeg, [5., 20.], [14.5, 17.2])
+    if ntune_common_enabled('useLiveSteerRatio'):
+      sr = max(params.steerRatio, 0.1)
+    else:
+      sr = max(ntune_common_get('steerRatio'), 0.1)
+    #sr = interp(self.steeringAngleDeg, [5., 20.], [14.5, 17.2])
     self.VM.update_params(x, sr)
 
     lat_plan = self.sm['lateralPlan']
