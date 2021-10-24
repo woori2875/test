@@ -59,9 +59,6 @@ def manager_init():
     ("IsOpenpilotViewEnabled", "0"),
     ("NewRadarInterface", "0"),
     ("NDACamera", "1"),
-    ("LiveSteerRatio", "0"),
-    ("LeftCurvOffsetAdj", "0"),
-    ("RightCurvOffsetAdj", "0"),
     ("ShowCgearUI", "1"),
   ]
   if not PC:
