@@ -16,7 +16,7 @@ class LatControlPID(LatControl):
                               k_f=CP.lateralTuning.pid.kf, pos_limit=1.0, neg_limit=-1.0,
                               derivative_period=0.1)
     self.new_kf_tuned = CP.lateralTuning.pid.newKfTuned
-    self.get_steer_feedforward = CI.get_steer_feedforward
+    self.get_steer_feedforward = CI.get_steer_feedforward_function()
     self.kf_mean = KalmanMean()
 
   def reset(self):
