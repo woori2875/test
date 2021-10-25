@@ -501,9 +501,9 @@ class Controls:
     lat_plan = self.sm['lateralPlan']
     long_plan = self.sm['longitudinalPlan']
     
-    localizer = self.sm['liveLocationKalman']
-    if localizer.orientationNED.valid:
-      roll = localizer.orientationNED.value[0]
+    orientationNED = self.sm['liveLocationKalman'].orientationNED
+    if orientationNED.valid:
+      roll = orientationNED.value[0]
     else:
       roll = 0
     
