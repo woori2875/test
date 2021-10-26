@@ -21,7 +21,6 @@ class ATextItem {
 
 class AText {
   private:
-    NVGcolor color;
     std::string font_name;
 
     std::vector<ATextItem> after_items;
@@ -29,8 +28,7 @@ class AText {
 
   public:
 
-    AText(NVGcolor color, const char *font_name) {
-      this->color = color;
+    AText(const char *font_name) {
       this->font_name = font_name;
     }
 
@@ -51,7 +49,6 @@ class AText {
       nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
 
       for(auto it = after_items.rbegin(); it != after_items.rend(); ++it)  {
-        NVGcolor color = this->color;
         color.a = it->alpha/255.f;
         ui_draw_text(s, x, y, it->text.c_str(), size, color, this->font_name.c_str());
       }
