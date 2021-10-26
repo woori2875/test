@@ -29,7 +29,11 @@
 #include "selfdrive/ui/qt/qt_window.h"
 #include "selfdrive/ui/qt/widgets/opkr.h"
 
-
+#include <QComboBox>
+#include <QAbstractItemView>
+#include <QScroller>
+#include <QListView>
+#include <QListWidget>
 
 TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
   auto params = Params();
