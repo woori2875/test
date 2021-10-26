@@ -32,17 +32,3 @@ private:
   void refresh();
   void getUserKeys(const QString &username);
 };
-
-// openpilot Preview
-class OpenpilotView : public AbstractControl {
-  Q_OBJECT
-
-public:
-  OpenpilotView();
-
-private:
-  QPushButton btn;
-  Params params;
-
-  void refresh();
-};
