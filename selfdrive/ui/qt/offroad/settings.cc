@@ -348,7 +348,7 @@ QWidget * network_panel(QWidget * parent) {
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->addWidget(new LabelControl("제어메뉴", ""));
-  layout->addWidget(new LateralControl());
+  layout->addWidget(new LateralControlSelect());
   
 }
 
