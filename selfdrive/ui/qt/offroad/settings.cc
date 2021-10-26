@@ -355,17 +355,6 @@ UserPanel::UserPanel(QWidget* parent) : QWidget(parent) {
 
   layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("〓〓〓〓〓〓〓〓〓【 개 발 자 】〓〓〓〓〓〓〓〓〓", ""));
-  layout->addWidget(horizontal_line());
-  layout->addWidget(new ParamControl("ShowCgearUI",
-                                            "주행기어단수 보기",
-                                            "기어레버 위치와 기어단수를 볼수 있습니다..",
-                                            "../assets/offroad/icon_shell.png"
-                                            ));
-  layout->addWidget(new ParamControl("TenesiCamera",
-                                            "NDA 카메라경고",
-                                            "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
-                                            "../assets/offroad/icon_shell.png"
-                                            ));
 
   layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("〓〓〓〓〓〓〓〓〓【 제어메뉴 】〓〓〓〓〓〓〓〓〓", ""));
@@ -647,6 +636,18 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "",
                                             "../assets/offroad/icon_shell.png",
                                             this));
+  
+  toggles.append(new ParamControl("NDACamera",
+                                            "NDA 카메라경고",
+                                            "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
+                                            "../assets/offroad/icon_shell.png"
+                                            ));
+
+  toggles.append(new ParamControl("ShowCgearUI",
+                                            "주행기어단수 보기",
+                                            "기어레버 위치와 기어단수를 볼수 있습니다..",
+                                            "../assets/offroad/icon_shell.png"
+                                            ));
   
   toggles.append(new ParamControl("CustomLeadMark",
                                             "Use custom lead mark",
