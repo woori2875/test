@@ -342,6 +342,12 @@ QWidget * network_panel(QWidget * parent) {
   return w;
 }
 
+//Special menu
+SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  
+}
+
 static QStringList get_list(const char* path)
 {
   QStringList stringList;
@@ -411,6 +417,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
     {"토글메뉴", new TogglesPanel(this)},
     {"소프트웨어", new SoftwarePanel(this)},
     {"커뮤니티", new CommunityPanel(this)},
+    {"스페셜", new SpecialPanel(this)},
   };
 
 #ifdef ENABLE_MAPS
