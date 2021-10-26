@@ -102,3 +102,11 @@ public:
   explicit CommunityPanel(QWidget *parent = nullptr);
 };
 
+class UserPanel : public QWidget {
+  Q_OBJECT
+public:
+  explicit UserPanel(QWidget *parent = nullptr);
+};
+
+
+
