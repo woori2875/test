@@ -4,9 +4,6 @@
 #include <string>
 
 #include <QDebug>
-#include <QProcess> // opkr
-#include <QDateTime> // opkr
-#include <QTimer> // opkr
 
 #ifndef QCOM
 #include "selfdrive/ui/qt/offroad/networking.h"
@@ -27,7 +24,6 @@
 #include "selfdrive/ui/ui.h"
 #include "selfdrive/ui/qt/util.h"
 #include "selfdrive/ui/qt/qt_window.h"
-#include "selfdrive/ui/qt/widgets/opkr.h"
 
 #include <QComboBox>
 #include <QAbstractItemView>
@@ -322,6 +318,10 @@ QWidget * network_panel(QWidget * parent) {
   // SSH key management
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
+  list->addItem(new KRDateToggle());
+  list->addItem(new KRTimeToggle());
+  list->addItem(new LateralControlSelect());
+  list->addItem(horizontal_line());
   
   // add
   const char* gitpull = "sh /data/openpilot/gitpull.sh";
@@ -341,25 +341,6 @@ QWidget * network_panel(QWidget * parent) {
 #endif
   return w;
 }
-
-UserPanel::UserPanel(QWidget* parent) : QWidget(parent) {
-  QVBoxLayout *layout = new QVBoxLayout(this);
-
-  layout->setContentsMargins(0, 0, 0, 0);
-  layout->setSpacing(30);
-
-  layout->addWidget(new LabelControl("〓〓〓〓〓〓〓〓〓【 U I 설정 】〓〓〓〓〓〓〓〓〓", ""));
-  layout->addWidget(new KRDateToggle());
-  layout->addWidget(new KRTimeToggle());
-
-
-  layout->addWidget(horizontal_line());
-  layout->addWidget(new LabelControl("〓〓〓〓〓〓〓〓〓【 개 발 자 】〓〓〓〓〓〓〓〓〓", ""));
-
-  layout->addWidget(horizontal_line());
-  layout->addWidget(new LabelControl("〓〓〓〓〓〓〓〓〓【 제어메뉴 】〓〓〓〓〓〓〓〓〓", ""));
-  layout->addWidget(new LateralControl());
-
 
 static QStringList get_list(const char* path)
 {
@@ -430,7 +411,6 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
     {"토글메뉴", new TogglesPanel(this)},
     {"소프트웨어", new SoftwarePanel(this)},
     {"커뮤니티", new CommunityPanel(this)},
-    {"사용자설정", new UserPanel(this)},
   };
 
 #ifdef ENABLE_MAPS
