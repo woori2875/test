@@ -32,7 +32,7 @@ class AText {
       this->font_name = font_name;
     }
 
-    void update(const UIState *s, float x, float y, const char *string, int size) {
+    void update(const UIState *s, float x, float y, const char *string, int size, NVGcolor color) {
       if(last_text != string) {
         after_items.insert(after_items.begin(), ATextItem(string, 255));
         last_text = string;
