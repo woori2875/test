@@ -347,7 +347,21 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
-  
+  layout->addWidget(new ParamControl("ShowCgearUI",
+                                            "주행기어단수 보기",
+                                            "기어레버 위치와 기어단수를 볼수 있습니다..",
+                                            "../assets/offroad/icon_shell.png"
+                                            ));
+  layout->addWidget(new ParamControl("TenesiCamera",
+                                            "NDA 카메라경고",
+                                            "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
+                                            "../assets/offroad/icon_shell.png"
+                                            ));
+  layout->addWidget(new ParamControl("ShowDebugUI",
+                                            "Show Debug UI",
+                                            "",
+                                            "../assets/offroad/icon_shell.png",
+                                            ));
   layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("제어메뉴", ""));
   layout->addWidget(new LateralControlSelect());
@@ -424,7 +438,7 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
     {"토글메뉴", new TogglesPanel(this)},
     {"소프트웨어", new SoftwarePanel(this)},
     {"커뮤니티", new CommunityPanel(this)},
-    {"스페셜", new SpecialPanel(this)},
+    {"스페셜메뉴", new SpecialPanel(this)},
   };
 
 #ifdef ENABLE_MAPS
@@ -624,24 +638,6 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             "",
                                             "../assets/offroad/icon_shell.png",
                                             this));
-
-  toggles.append(new ParamControl("ShowDebugUI",
-                                            "Show Debug UI",
-                                            "",
-                                            "../assets/offroad/icon_shell.png",
-                                            this));
-  
-  toggles.append(new ParamControl("NDACamera",
-                                            "NDA 카메라경고",
-                                            "NDA 카메라 경고를 계기판과 HUD에 끄거나 켭니다.",
-                                            "../assets/offroad/icon_shell.png"
-                                            ));
-
-  toggles.append(new ParamControl("ShowCgearUI",
-                                            "주행기어단수 보기",
-                                            "기어레버 위치와 기어단수를 볼수 있습니다..",
-                                            "../assets/offroad/icon_shell.png"
-                                            ));
   
   toggles.append(new ParamControl("CustomLeadMark",
                                             "Use custom lead mark",
