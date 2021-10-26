@@ -323,7 +323,6 @@ QWidget * network_panel(QWidget * parent) {
   list->addItem(new SshControl());
   list->addItem(new KRDateToggle());
   list->addItem(new KRTimeToggle());
-  list->addItem(new LateralControlSelect());
   list->addItem(horizontal_line());
   
   // add
@@ -348,6 +347,8 @@ QWidget * network_panel(QWidget * parent) {
 //Special menu
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->addWidget(new LabelControl("제어메뉴", ""));
+  layout->addWidget(new LateralControl());
   
 }
 
