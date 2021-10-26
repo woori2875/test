@@ -321,10 +321,7 @@ QWidget * network_panel(QWidget * parent) {
   // SSH key management
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
-  list->addItem(new KRDateToggle());
-  list->addItem(new KRTimeToggle());
-  list->addItem(horizontal_line());
-  
+  layout->addWidget(horizontal_line());
   // add
   const char* gitpull = "sh /data/openpilot/gitpull.sh";
   auto gitpullbtn = new ButtonControl("GitPull and Reboot", "실행");
@@ -347,9 +344,15 @@ QWidget * network_panel(QWidget * parent) {
 //Special menu
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->addWidget(new LabelControl("UI설정", ""));
+  layout->addWidget(new KRDateToggle());
+  layout->addWidget(new KRTimeToggle());
+  
+  layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("제어메뉴", ""));
   layout->addWidget(new LateralControlSelect());
   
+  layout->addWidget(horizontal_line());
 }
 
 static QStringList get_list(const char* path)
