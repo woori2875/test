@@ -361,7 +361,8 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
                                             "Show Debug UI",
                                             "",
                                             "../assets/offroad/icon_shell.png",
-                                            ));
+                                            this));
+  
   layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("제어메뉴", ""));
   layout->addWidget(new LateralControlSelect());
