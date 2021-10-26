@@ -25,6 +25,9 @@
 #include "selfdrive/ui/qt/util.h"
 #include "selfdrive/ui/qt/qt_window.h"
 
+#include <QProcess> // opkr
+#include <QDateTime> // opkr
+#include <QTimer> // opkr
 #include <QComboBox>
 #include <QAbstractItemView>
 #include <QScroller>
