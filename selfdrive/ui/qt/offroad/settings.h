@@ -102,7 +102,7 @@ public:
   explicit CommunityPanel(QWidget *parent = nullptr);
 };
 
-class TenesiPanel : public QWidget {
+class SpecialPanel : public QWidget {
   Q_OBJECT
 public:
   explicit SpecialPanel(QWidget *parent = nullptr);
