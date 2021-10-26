@@ -358,8 +358,8 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
                                             "../assets/offroad/icon_shell.png"
                                             ));
   layout->addWidget(new ParamControl("ShowDebugUI",
-                                            "Show Debug UI",
-                                            "",
+                                            "기본 UI 보기",
+                                            "기본 UI를 볼수 있습니다.",
                                             "../assets/offroad/icon_shell.png",
                                             this));
   
