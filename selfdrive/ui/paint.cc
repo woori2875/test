@@ -988,6 +988,8 @@ static void ui_draw_vision_maxspeed(UIState *s) {
   }
 }
 
+AText textSpeed("sans-bold");
+
 static void ui_draw_vision_speed(UIState *s) {
   const float speed = std::max(0.0, (*s->sm)["carState"].getCarState().getVEgo() * (s->scene.is_metric ? 3.6 : 2.2369363));
   const std::string speed_str = std::to_string((int)std::nearbyint(speed));
@@ -1067,15 +1069,25 @@ static void ui_draw_vision_speed(UIState *s) {
   }
 
   NVGcolor val_color = COLOR_SKYBLUE;
-
   if( s->scene.brakePress ) val_color = COLOR_RED;
   else if( s->scene.brakeLights ) val_color = nvgRGBA(201, 34, 49, 100);
+	
   nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
 
-  nvgTextAlign(s->vg, NVG_ALIGN_CENTER | NVG_ALIGN_BASELINE);
-  ui_draw_text(s, s->fb_w/2, 210, speed_str.c_str(), 96 * 2.5, val_color, "sans-bold");
-  //ui_draw_text(s, s->fb_w/2, 290, s->scene.is_metric ? "PID" : "mph", 26 * 2.5, COLOR_WHITE_ALPHA(200), "sans-regular");
+  if(s->fb_w > 1500) {
+    //ui_draw_text(s, s->fb_w/2, 220, speed_str.c_str(), 96 * 2.5, COLOR_WHITE, "sans-bold");
+    textSpeed.update(s, s->fb_w/2, 210, speed_str.c_str(), 96 * 2.5, val_color);
+    //ui_draw_text(s, s->fb_w/2, 300, s->scene.is_metric ? "km/h" : "mph", 36 * 2.5, COLOR_WHITE_ALPHA(200), "sans-regular");
+  }
+  else {
+    //ui_draw_text(s, s->fb_w/2, 180, speed_str.c_str(), 60 * 2.5, COLOR_WHITE, "sans-bold");
+    textSpeed.update(s, s->fb_w/2, 170, speed_str.c_str(), 60 * 2.5, val_color);
+    //ui_draw_text(s, s->fb_w/2, 230, s->scene.is_metric ? "km/h" : "mph", 25 * 2.5, COLOR_WHITE_ALPHA(200), "sans-regular");
+  }
 }
+  //ui_draw_text(s, s->fb_w/2, 210, speed_str.c_str(), 96 * 2.5, val_color, "sans-bold");
+  //ui_draw_text(s, s->fb_w/2, 290, s->scene.is_metric ? "PID" : "mph", 26 * 2.5, COLOR_WHITE_ALPHA(200), "sans-regular");
+//}
 
 static void ui_draw_vision_event(UIState *s) {
   const UIScene *scene = &s->scene;
