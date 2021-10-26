@@ -1,8 +1,17 @@
 #include "selfdrive/ui/qt/widgets/ssh_keys.h"
 
+#include <QHBoxLayout>
+#include <QNetworkReply>
+
+#include <QProcess> // opkr
+#include <QAction> // opkr
+#include <QMenu> // opkr
+#include <QDateTime> //opkr
+
 #include "selfdrive/common/params.h"
 #include "selfdrive/ui/qt/api.h"
 #include "selfdrive/ui/qt/widgets/input.h"
+#include "selfdrive/ui/ui.h" // opkr
 
 SshControl::SshControl() : ButtonControl("SSH Keys", "", "Warning: This grants SSH access to all public keys in your GitHub settings. Never enter a GitHub username other than your own. A comma employee will NEVER ask you to add their GitHub username.") {
   username_label.setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -67,6 +76,7 @@ void SshControl::getUserKeys(const QString &username) {
 
 //LateralControlSelect
 LateralControlSelect::LateralControlSelect() : AbstractControl("LateralControl [√]", "조향로직을 선택합니다. (PID/INDI/LQR)", "../assets/offroad/icon_logic.png") {
+ 
   label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
   label.setStyleSheet("color: #e0e879");
   hlayout->addWidget(&label);
