@@ -1,6 +1,5 @@
 import math
 
-from common.kf import KalmanMean
 from selfdrive.controls.lib.pid import PIDController
 from selfdrive.controls.lib.drive_helpers import get_steer_max
 from selfdrive.controls.lib.latcontrol import LatControl, MIN_STEER_SPEED
@@ -17,7 +16,6 @@ class LatControlPID(LatControl):
                               derivative_period=0.1)
     self.new_kf_tuned = CP.lateralTuning.pid.newKfTuned
     self.get_steer_feedforward = CI.get_steer_feedforward_function()
-    self.kf_mean = KalmanMean()
 
   def reset(self):
     super().reset()
@@ -48,13 +46,6 @@ class LatControlPID(LatControl):
 
       output_steer = self.pid.update(angle_steers_des, CS.steeringAngleDeg, override=CS.steeringPressed,
                                      feedforward=steer_feedforward, speed=CS.vEgo, deadzone=deadzone)
-      
-      # estimates average kf using accurate feedforward function, only when actively steering
-      if abs(CS.steeringRateDeg) < 10 and abs(angle_steers_des_no_offset) > 10 and CS.vEgo > 10 and not CS.steeringPressed:
-        self.kf_mean.predict(abs(output_steer / (angle_steers_des_no_offset * steer_feedforward)))
-        self.pid.k_f = self.kf_mean.x_hat
-        print('Using kf: {}'.format(round(self.kf_mean.x_hat, 7)))
-        
       pid_log.active = True
       pid_log.p = self.pid.p
       pid_log.i = self.pid.i
