@@ -334,11 +334,10 @@ QWidget * network_panel(QWidget * parent) {
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->addWidget(new LabelControl("GitPull설정", ""));
-  layout->addWidget(new GitHash()); 
-  const char* gitpull = "/data/openpilot/gitpull.sh ''";
-  auto gitpullBtn = new ButtonControl("GitPull and Reboot", "실행");
+  const char* gitpull = "/data/openpilot/gitpull.sh";
+  auto gitpullbtn = new ButtonControl("GitPull and Reboot", "실행");
   layout->addWidget(gitpullBtn);
-  QObject::connect(gitpullBtn, &ButtonControl::clicked, [=]() {
+  QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
     if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
       std::system(gitpull);
       QTimer::singleShot(1000, []() { Hardware::reboot(); });
