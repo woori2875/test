@@ -149,19 +149,37 @@ AdvancedNetworking::AdvancedNetworking(QWidget* parent, WifiManager* wifi): QWid
   list->addItem(new SshControl());
   list->addItem(horizontal_line());
   
-  // add
-  const char* gitpull = "sh /data/openpilot/gitpull.sh";
-  //auto gitpullbtn = new ButtonControl("Git Fetch and Reset", "RUN");
-  auto gitpullbtn = new ButtonControl("Git Fetch and Reset", "실행");
-  QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
-    //if (ConfirmationDialog::confirm("Process?", this)){
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)){
+  // 깃풀
+  const char* gitpull = "/data/openpilot/gitpull.sh ''";
+  auto gitpullBtn = new ButtonControl("Git Pull", "실행");
+  layout->addWidget(gitpullBtn);
+  QObject::connect(gitpullBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("Git Pull 실행하시겠습니까?", this)) {
       std::system(gitpull);
-      QTimer::singleShot(1000, []() { Hardware::reboot(); });
+      if (Hardware::TICI()) { std::system("sudo reboot"); }
+      if (Hardware::EON()) { std::system("reboot"); }
     }
   });
-  list->addItem(gitpullbtn);
-  
+
+  list->addItem(horizontal_line());
+  const char* git_reset = "/data/openpilot/git_reset.sh ''";
+  auto gitrestBtn = new ButtonControl("Git Reset", "실행");
+  layout->addWidget(gitrestBtn);
+  QObject::connect(gitrestBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("Git Reset 실행하시겠습니까?", this)) {
+      std::system(git_reset);
+    }
+  });
+
+  list->addItem(horizontal_line());
+  const char* gitpull_cancel = "/data/openpilot/gitpull_cancel.sh ''";
+  auto gitpull_cancelBtn = new ButtonControl("Gitpull Cancle", "실행");
+  layout->addWidget(gitpull_cancelBtn);
+  QObject::connect(gitpull_cancelBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("Gitpull Cancle 실행하시겠습니까?", this)) {
+      std::system(gitpull_cancel);
+    }
+  });
   list->addItem(horizontal_line());
   
   // Roaming toggle
