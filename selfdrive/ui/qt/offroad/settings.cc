@@ -319,8 +319,30 @@ QWidget * network_panel(QWidget * parent) {
   list->addItem(tetheringBtn);
 
   // SSH key management
+  // add
+  const char* gitpull = "sh /data/openpilot/gitpull.sh";
+  auto gitpullbtn = new ButtonControl("GitPull and Reboot", "실행");
+  QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("실행하시겠습니까?", w)){
+      std::system(gitpull);
+      QTimer::singleShot(1000, []() { Hardware::reboot(); });
+    }
+  });
+  list->addItem(gitpullbtn);
+
+  const char* gitpull_cancel = "sh /data/openpilot/gitpull_cancel.sh ''";
+  auto gitpull_cancelBtn = new ButtonControl("Git Pull 취소", "실행");
+  QObject::connect(gitpull_cancelBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("GitPull 이전 상태로 되돌립니다. 진행하시겠습니까?", w)){
+      std::system(gitpull_cancel);
+    }
+  });
+  list->addItem(gitpull_canceltbtn);
+  list->addItem(horizontal_line());
+  
   list->addItem(new SshToggle());
   list->addItem(new SshControl());
+  layout->addWidget(horizontal_line());
 
   layout->addWidget(list);
   layout->addStretch(1);
@@ -333,27 +355,6 @@ QWidget * network_panel(QWidget * parent) {
 //Special menu
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->addWidget(new LabelControl("GitPull설정", ""));
-  const char* gitpull = "/data/openpilot/gitpull.sh";
-  auto gitpullbtn = new ButtonControl("GitPull and Reboot", "실행");
-  layout->addWidget(gitpullBtn);
-  QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
-      std::system(gitpull);
-      QTimer::singleShot(1000, []() { Hardware::reboot(); });
-    }
-  });
-  
-  layout->addWidget(horizontal_line());
-  const char* gitpull_cancel = "/data/openpilot/gitpull_cancel.sh ''";
-  auto gitpull_cancelBtn = new ButtonControl("Git Pull 취소", "실행");
-  layout->addWidget(gitpull_cancelBtn);
-  QObject::connect(gitpull_cancelBtn, &ButtonControl::clicked, [=]() {
-    if (ConfirmationDialog::confirm("GitPull 이전 상태로 되돌립니다. 진행하시겠습니까?", this)) {
-      std::system(gitpull_cancel);
-    }
-  });
-  layout->addWidget(horizontal_line());
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
