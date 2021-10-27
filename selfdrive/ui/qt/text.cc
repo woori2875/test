@@ -46,6 +46,12 @@ int main(int argc, char *argv[]) {
     Hardware::reboot();
    // btn2->setEnabled(false);
   });
+  btn2->setText("GitPull_Cancel");
+  QObject::connect(btn, &QPushButton::clicked, [=]() {
+    QProcess::execute("sh /data/openpilot/gitpull_cancel.sh");
+    Hardware::reboot();
+   // btn2->setEnabled(false);
+  });
   main_layout->addWidget(btn2, 0, 0, Qt::AlignLeft | Qt::AlignBottom);
 #else
   btn->setText("Exit");
