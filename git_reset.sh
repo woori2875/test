@@ -8,11 +8,3 @@ export PYTHONPATH=/data/openpilot
 cd /data/openpilot
 git fetch --all
 git reset --hard HEAD
-
-if [ -f "/data/openpilot/prebuilt" ]; then
-   pkill -f thermald
-   rm -f /data/openpilot/prebuilt
- fi
-
- reboot
-fi
