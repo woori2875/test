@@ -380,10 +380,11 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
     }
   });
   layout->addWidget(horizontal_line());
-
+ 
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
+  layout->addWidget(new BrightnessControl());
   layout->addWidget(new AutoScreenOff());
   layout->addWidget(new ParamControl("ShowCgearUI",
                                             "주행기어단수 보기",
