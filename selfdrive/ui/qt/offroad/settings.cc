@@ -319,9 +319,6 @@ QWidget * network_panel(QWidget * parent) {
   list->addItem(tetheringBtn);
 
   // SSH key management
-  list->addItem(new SshToggle());
-  list->addItem(new SshControl());
-  layout->addWidget(horizontal_line());
   // add
   const char* gitpull = "sh /data/openpilot/gitpull.sh";
   auto gitpullbtn = new ButtonControl("GitPull and Reboot", "실행");
@@ -332,6 +329,20 @@ QWidget * network_panel(QWidget * parent) {
     }
   });
   list->addItem(gitpullbtn);
+  
+  const char* gitpull_cancel = "sh /data/openpilot/gitpull_cancel.sh ''";
+  auto gitpull_cancelBtn = new ButtonControl("Git Pull 취소", "실행");
+  QObject::connect(gitpull_cancelBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("GitPull 이전 상태로 되돌립니다. 진행하시겠습니까?", this)) {
+      std::system(gitpull_cancel);
+    }
+  });
+  list->addItem(gitpullcanceltbtn);
+  list->addItem(horizontal_line());
+  
+  list->addItem(new SshToggle());
+  list->addItem(new SshControl());
+  layout->addWidget(horizontal_line());
 
   layout->addWidget(list);
   layout->addStretch(1);
