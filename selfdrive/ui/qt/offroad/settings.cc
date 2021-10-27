@@ -37,12 +37,12 @@
 TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
   auto params = Params();
   addItem(new ParamControl("OpenpilotEnabledToggle",
-                                  "Enable openpilot",
+                                  "오픈파일럿 사용",
                                   "Use the openpilot system for adaptive cruise control and lane keep driver assistance. Your attention is required at all times to use this feature. Changing this setting takes effect when the car is powered off.",
                                   "../assets/offroad/icon_openpilot.png",
                                   this));
   addItem(new ParamControl("IsLdwEnabled",
-                                  "Enable Lane Departure Warnings",
+                                  "차선이탈 경보 사용",
                                   "Receive alerts to steer back into the lane when your vehicle drifts over a detected lane line without a turn signal activated while driving over 31mph (50kph).",
                                   "../assets/offroad/icon_warning.png",
                                   this));
@@ -52,30 +52,30 @@ TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
                                   "../assets/offroad/icon_openpilot_mirrored.png",
                                   this));*/
   addItem(new ParamControl("IsMetric",
-                                  "Use Metric System",
+                                  "미터법 사용",
                                   "Display speed in km/h instead of mph.",
                                   "../assets/offroad/icon_metric.png",
                                   this));
   addItem(new ParamControl("CommunityFeaturesToggle",
-                                  "Enable Community Features",
+                                  "커뮤니티 기능 사용",
                                   "Use features, such as community supported hardware, from the open source community that are not maintained or supported by comma.ai and have not been confirmed to meet the standard safety model. Be extra cautious when using these features",
                                   "../assets/offroad/icon_shell.png",
                                   this));
 
   addItem(new ParamControl("UploadRaw",
-                                  "Upload Raw Logs",
+                                  "Raw Logs 업로드",
                                   "Upload full logs and full resolution video by default while on Wi-Fi. If not enabled, individual logs can be marked for upload at useradmin.comma.ai.",
                                   "../assets/offroad/icon_network.png",
                                   this));
 
   ParamControl *record_toggle = new ParamControl("RecordFront",
-                                                 "Record and Upload Driver Camera",
+                                                 "운전자 영상 녹화 및 업로드",
                                                  "Upload data from the driver facing camera and help improve the driver monitoring algorithm.",
                                                  "../assets/offroad/icon_monitoring.png",
                                                  this);
   addItem(record_toggle);
   addItem(new ParamControl("EndToEndToggle",
-                                  "\U0001f96c Disable use of lanelines (Alpha) \U0001f96c",
+                                  "\U0001f96c ㅣLaneless시 적용 \U0001f96c",
                                   "In this mode openpilot will ignore lanelines and just drive how it thinks a human would.",
                                   "../assets/offroad/icon_road.png",
                                   this));
@@ -140,6 +140,8 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
   
   // Openpilot View
   addItem(new OpenpilotView());
+  
+  
 
   // offroad-only buttons
 
@@ -202,6 +204,17 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
     }
   }
 
+  QPushButton *panda_flashingBtn = new QPushButton("판다플래싱");
+  panda_flashingBtn->setStyleSheet("height: 120px;border-radius: 15px;background-color: #07000A;");
+  QObject::connect(panda_flashingBtn, &QPushButton::released, [=]() {
+    if (ConfirmationDialog::confirm("판다플래싱 실행하시겠습니까?", this)) {
+      std::system("/data/openpilot/panda_flashing.sh ''");
+      if (Hardware::TICI()) { std::system("sudo reboot"); }
+      if (Hardware::EON()) { std::system("reboot"); }
+    }
+  });
+  addItem(panda_flashingBtn); 
+  
   // power buttons
   QHBoxLayout *power_layout = new QHBoxLayout();
   power_layout->setSpacing(30);
@@ -333,9 +346,45 @@ QWidget * network_panel(QWidget * parent) {
 //Special menu
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->addWidget(new LabelControl("GIT PULL설정", ""));
+  layout->addWidget(new PrebuiltToggle());
+  layout->addWidget(horizontal_line());
+  
+  layout->addWidget(new GitHash()); 
+  const char* gitpull = "/data/openpilot/gitpull.sh ''";
+  auto gitpullBtn = new ButtonControl("Git Pull", "실행");
+  layout->addWidget(gitpullBtn);
+  QObject::connect(gitpullBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("Git Pull 실행하시겠습니까?", this)) {
+      std::system(gitpull);
+    }
+  });
+
+  layout->addWidget(horizontal_line());
+  const char* git_reset = "/data/openpilot/git_reset.sh ''";
+  auto gitrestBtn = new ButtonControl("Git Reset", "실행");
+  layout->addWidget(gitrestBtn);
+  QObject::connect(gitrestBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("Git Reset 실행하시겠습니까?", this)) {
+      std::system(git_reset);
+    }
+  });
+
+  layout->addWidget(horizontal_line());
+  const char* gitpull_cancel = "/data/openpilot/gitpull_cancel.sh ''";
+  auto gitpull_cancelBtn = new ButtonControl("Gitpull Cancel", "실행");
+  layout->addWidget(gitpull_cancelBtn);
+  QObject::connect(gitpull_cancelBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("Gitpull Cancel 실행하시겠습니까?", this)) {
+      std::system(gitpull_cancel);
+    }
+  });
+  layout->addWidget(horizontal_line());
+
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
+  layout->addWidget(new AutoScreenOff());
   layout->addWidget(new ParamControl("ShowCgearUI",
                                             "주행기어단수 보기",
                                             "기어레버 위치와 기어단수를 볼수 있습니다..",
@@ -431,11 +480,11 @@ SettingsWindow::SettingsWindow(QWidget *parent) : QFrame(parent) {
     {"스페셜메뉴", new SpecialPanel(this)},
   };
 
-#ifdef ENABLE_MAPS
+/*#ifdef ENABLE_MAPS
   auto map_panel = new MapPanel(this);
   panels.push_back({"Navigation", map_panel});
   QObject::connect(map_panel, &MapPanel::closeSettings, this, &SettingsWindow::closeSettings);
-#endif
+#endif*/
 
   const int padding = panels.size() > 3 ? 25 : 35;
 
@@ -564,55 +613,55 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
   QList<ParamControl*> toggles;
 
   toggles.append(new ParamControl("UseClusterSpeed",
-                                            "Use Cluster Speed",
+                                            "계기판 속도계 사용",
                                             "Use cluster speed instead of wheel speed.",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("LongControlEnabled",
-                                            "Enable HKG Long Control",
+                                            "롱컨트롤 사용",
                                             "warnings: it is beta, be careful!! Openpilot will control the speed of your car",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("MadModeEnabled",
-                                            "Enable HKG MAD mode",
+                                            "MAD mode 사용",
                                             "Openpilot will engage when turn cruise control on",
                                             "../assets/offroad/icon_openpilot.png",
                                             this));
 
   toggles.append(new ParamControl("IsLdwsCar",
-                                            "LDWS",
+                                            "LDWS차량 전용",
                                             "If your car only supports LDWS, turn it on.",
                                             "../assets/offroad/icon_openpilot.png",
                                             this));
 
   toggles.append(new ParamControl("LaneChangeEnabled",
-                                            "Enable Lane Change Assist",
+                                            "차선변경 옵션",
                                             "Perform assisted lane changes with openpilot by checking your surroundings for safety, activating the turn signal and gently nudging the steering wheel towards your desired lane. openpilot is not capable of checking if a lane change is safe. You must continuously observe your surroundings to use this feature.",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("AutoLaneChangeEnabled",
-                                            "Enable Auto Lane Change(Nudgeless)",
+                                            "자동차선 변경 사용",
                                             "warnings: it is beta, be careful!!",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("SccSmootherSlowOnCurves",
-                                            "Enable Slow On Curves",
+                                            "커브 감속 사용",
                                             "",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("SccSmootherSyncGasPressed",
-                                            "Sync set speed on gas pressed",
+                                            "Cruise속도 동기화",
                                             "",
                                             "../assets/offroad/icon_road.png",
                                             this));
 
   toggles.append(new ParamControl("StockNaviDecelEnabled",
-                                            "Stock Navi based deceleration",
+                                            "순정네비 감속기능 사용",
                                             "Use the stock navi based deceleration for longcontrol",
                                             "../assets/offroad/icon_road.png",
                                             this));
@@ -624,13 +673,13 @@ CommunityPanel::CommunityPanel(QWidget* parent) : QWidget(parent) {
                                             this));*/
 
   toggles.append(new ParamControl("DisableOpFcw",
-                                            "Disable Openpilot FCW",
+                                            "오픈파일럿 추돌경고 옵션사용",
                                             "",
                                             "../assets/offroad/icon_shell.png",
                                             this));
   
   toggles.append(new ParamControl("CustomLeadMark",
-                                            "Use custom lead mark",
+                                            "custom레이더 표시",
                                             "",
                                             "../assets/offroad/icon_road.png",
                                             this));
