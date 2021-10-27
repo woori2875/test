@@ -118,7 +118,8 @@ def manager_init():
   crash.bind_user(id=dongle_id)
   crash.bind_extra(dirty=dirty, origin=origin, branch=branch, commit=commit,
                    device=HARDWARE.get_device_type())
-
+  
+  os.system("/data/openpilot/gitcommit.sh") # 깃관련
 
 def manager_prepare():
   for p in managed_processes.values():
