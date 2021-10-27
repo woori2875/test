@@ -87,7 +87,13 @@ private slots:
       if (alert.sound != AudibleAlert::NONE) {
         auto &[s, loops] = sounds[alert.sound];
         s->setLoopCount(loops);
-        s->setVolume(volume);
+        if ((std::stof(Params().get("UIVolumeBoost")) * 0.01) < -0.03) {
+          s->setVolume(0.0);
+        } else if ((std::stof(Params().get("UIVolumeBoost")) * 0.01) > 0.03) {
+          s->setVolume(std::stof(Params().get("UIVolumeBoost")) * 0.01);
+        } else {
+          s->setVolume(volume);
+        }
         s->play();
       }
     }
