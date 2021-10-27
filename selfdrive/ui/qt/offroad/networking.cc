@@ -124,6 +124,7 @@ AdvancedNetworking::AdvancedNetworking(QWidget* parent, WifiManager* wifi): QWid
   connect(back, &QPushButton::clicked, [=]() { emit backPress(); });
   main_layout->addWidget(back, 0, Qt::AlignLeft);
   
+  ListWidget *list = new ListWidget(this);
   // Enable tethering layout
   tetheringToggle = new ToggleControl("Enable Tethering", "", "", wifi->isTetheringEnabled());
   list->addItem(tetheringToggle);
