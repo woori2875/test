@@ -85,6 +85,23 @@ public:
   }
 };
 
+class VolumeControl : public AbstractControl {
+  Q_OBJECT
+
+public:
+  VolumeControl();
+
+private:
+  QPushButton btnplus;
+  QPushButton btnminus;
+  QLabel label;
+  Params params;
+  QSoundEffect effect;
+  
+  void refresh();
+  void playsound();
+};
+
 class GitHash : public AbstractControl {
   Q_OBJECT
 
