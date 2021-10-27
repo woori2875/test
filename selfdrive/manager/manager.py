@@ -56,6 +56,7 @@ def manager_init():
     ("ShowDebugUI", "0"),
     ("DisableOpFcw", "0"),
     ("CustomLeadMark", "0"),
+    ("PutPrebuiltOn", "1"),
     ("IsOpenpilotViewEnabled", "0"),
     ("NewRadarInterface", "0"),
     ("NDACamera", "1"),
