@@ -215,11 +215,6 @@ function launch {
   tmux capture-pane -pq -S-1000 > /tmp/launch_log
 
   python ./selfdrive/car/hyundai/values.py > /data/params/d/SupportedCars
-
-  # spinner, by opkr
-  if [ -f "$BASEDIR/prebuilt" ]; then
-    python /data/openpilot/common/spinner.py &
-  fi
   
   # start manager
   cd selfdrive/manager
