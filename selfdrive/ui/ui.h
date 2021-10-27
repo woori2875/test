@@ -165,6 +165,7 @@ typedef struct UIScene {
   bool rightblindspot;
   int blindspot_blinkingrate = 120;
   int car_valid_status_changed = 0;
+  int nVolumeBoost = 0;
   float currentGear;
   bool kr_date_show;
   bool kr_time_show;
