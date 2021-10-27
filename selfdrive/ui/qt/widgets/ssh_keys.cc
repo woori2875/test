@@ -11,6 +11,7 @@
 #include "selfdrive/common/params.h"
 #include "selfdrive/ui/qt/api.h"
 #include "selfdrive/ui/qt/widgets/input.h"
+
 #include "selfdrive/ui/ui.h" // opkr
 
 SshControl::SshControl() : ButtonControl("SSH Keys", "", "Warning: This grants SSH access to all public keys in your GitHub settings. Never enter a GitHub username other than your own. A comma employee will NEVER ask you to add their GitHub username.") {
@@ -73,6 +74,99 @@ void SshControl::getUserKeys(const QString &username) {
 
   request->sendRequest("https://github.com/" + username + ".keys");
 }
+
+GitHash::GitHash() : AbstractControl("커밋(로컬/리모트)", "", "") {
+
+  QString lhash = QString::fromStdString(params.get("GitCommit").substr(0, 10));
+  QString rhash = QString::fromStdString(params.get("GitCommitRemote").substr(0, 10));
+  hlayout->addStretch(1);
+
+  local_hash.setText(QString::fromStdString(params.get("GitCommit").substr(0, 10)));
+  remote_hash.setText(QString::fromStdString(params.get("GitCommitRemote").substr(0, 10)));
+  //local_hash.setAlignment(Qt::AlignVCenter);
+  remote_hash.setAlignment(Qt::AlignVCenter);
+  local_hash.setStyleSheet("color: #aaaaaa");
+  if (lhash == rhash) {
+    remote_hash.setStyleSheet("color: #aaaaaa");
+  } else {
+    remote_hash.setStyleSheet("color: #0099ff");
+  }
+  hlayout->addWidget(&local_hash);
+  hlayout->addWidget(&remote_hash);
+}
+// opkr
+AutoScreenOff::AutoScreenOff() : AbstractControl("EON 화면끄기 시간", "주행 시작 후 화면보호를 위해 이온화면이 꺼지게 하거나 밝기를 줄입니다. 터치나 이벤트 발생시 자동으로 밝아지거나 켜집니다.", "../assets/offroad/icon_shell.png")
+{
+
+  label.setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+  label.setStyleSheet("color: #e0e879");
+  hlayout->addWidget(&label);
+
+  btnminus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnplus.setStyleSheet(R"(
+    padding: 0;
+    border-radius: 50px;
+    font-size: 35px;
+    font-weight: 500;
+    color: #E4E4E4;
+    background-color: #393939;
+  )");
+  btnminus.setFixedSize(150, 100);
+  btnplus.setFixedSize(150, 100);
+  hlayout->addWidget(&btnminus);
+  hlayout->addWidget(&btnplus);
+
+  QObject::connect(&btnminus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("AutoScreenOff"));
+    int value = str.toInt();
+    value = value - 1;
+    if (value <= -2 ) {
+      value = -2;
+    }
+    QUIState::ui_state.scene.scr.autoScreenOff = value;
+    QString values = QString::number(value);
+    params.put("AutoScreenOff", values.toStdString());
+    refresh();
+  });
+
+  QObject::connect(&btnplus, &QPushButton::clicked, [=]() {
+    auto str = QString::fromStdString(params.get("AutoScreenOff"));
+    int value = str.toInt();
+    value = value + 1;
+    if (value >= 10 ) {
+      value = 10;
+    }
+    QUIState::ui_state.scene.scr.autoScreenOff = value;
+    QString values = QString::number(value);
+    params.put("AutoScreenOff", values.toStdString());
+    refresh();
+  });
+  refresh();
+}
+
+void AutoScreenOff::refresh()
+{
+  QString option = QString::fromStdString(params.get("AutoScreenOff"));
+  if (option == "-2") {
+    label.setText(QString::fromStdString("항상켜기"));
+  } else if (option == "-1") {
+    label.setText(QString::fromStdString("15초"));
+  } else if (option == "0") {
+    label.setText(QString::fromStdString("30초"));
+  } else {
+    label.setText(QString::fromStdString(params.get("AutoScreenOff")) + "분");
+  }
+  btnminus.setText("－");
+  btnplus.setText("＋");
+}
+// opkr
 
 //LateralControlSelect
 LateralControlSelect::LateralControlSelect() : AbstractControl("LateralControl [√]", "조향로직을 선택합니다. (PID/INDI/LQR)", "../assets/offroad/icon_logic.png") {
