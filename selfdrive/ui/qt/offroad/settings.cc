@@ -369,6 +369,7 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
     }
   });
   layout->addWidget(horizontal_line());
+  
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
@@ -389,6 +390,7 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
                                             this));
   
   layout->addWidget(horizontal_line());
+  
   layout->addWidget(new LabelControl("제어메뉴", ""));
   layout->addWidget(new LateralControlSelect());
   
