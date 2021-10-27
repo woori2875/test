@@ -51,6 +51,11 @@ THERMAL_BANDS = OrderedDict({
 OFFROAD_DANGER_TEMP = 79.5 if TICI else 70.0
 
 prev_offroad_states: Dict[str, Tuple[bool, Optional[str]]] = {}
+  
+last_eon_fan_val = None
+
+prebuiltfile = '/data/openpilot/prebuilt' #프리빌트 생성
+  
 
 def read_tz(x):
   if x is None:
@@ -425,6 +430,12 @@ def thermald_thread():
       started_ts = None
       if off_ts is None:
         off_ts = sec_since_boot()   
+        
+    prebuiltlet = params.get_bool("PutPrebuiltOn") # opkr
+    if not os.path.isfile(prebuiltfile) and prebuiltlet:
+      os.system("cd /data/openpilot; touch prebuilt")
+    elif os.path.isfile(prebuiltfile) and not prebuiltlet:
+      os.system("cd /data/openpilot; rm -f prebuilt") # opkr    
     
     # Offroad power monitoring
     power_monitor.calculate(peripheralState, startup_conditions["ignition"])
