@@ -244,6 +244,7 @@ static void update_params(UIState *s) {
   if (!scene.read_params_once) {
     scene.kr_date_show = params.getBool("KRDateShow");
     scene.kr_time_show = params.getBool("KRTimeShow");  
+    scene.nVolumeBoost = std::stoi(params.get("UIVolumeBoost"));  
     scene.read_params_once = true;  
   }
 }
