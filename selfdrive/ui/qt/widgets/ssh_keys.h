@@ -96,7 +96,6 @@ private:
   QPushButton btnminus;
   QLabel label;
   Params params;
-  QSoundEffect effect;
   
   void refresh();
   void playsound();
