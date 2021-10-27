@@ -145,7 +145,7 @@ AdvancedNetworking::AdvancedNetworking(QWidget* parent, WifiManager* wifi): QWid
       std::system(gitpull_cancel);
     }
   });
-  list->addItem(gitpull_canceltbtn);
+  list->addItem(gitpullcanceltbtn);
   list->addItem(horizontal_line());
   
   // Enable tethering layout
