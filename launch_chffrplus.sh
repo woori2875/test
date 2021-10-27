@@ -216,6 +216,11 @@ function launch {
 
   python ./selfdrive/car/hyundai/values.py > /data/params/d/SupportedCars
 
+  # spinner, by opkr
+  if [ -f "$BASEDIR/prebuilt" ]; then
+    python /data/openpilot/common/spinner.py &
+  fi
+  
   # start manager
   cd selfdrive/manager
   ./build.py && ./manager.py
