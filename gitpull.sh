@@ -17,5 +17,5 @@ if [ "$HASH" != "$REMOTE_HASH" ]; then
     pkill -f thermald
     rm -f /data/openpilot/prebuilt
   fi
-  sleep 5s
+  reboot
 fi
