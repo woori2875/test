@@ -151,18 +151,24 @@ AdvancedNetworking::AdvancedNetworking(QWidget* parent, WifiManager* wifi): QWid
 
   // add
   const char* gitpull = "sh /data/openpilot/gitpull.sh";
-  //auto gitpullbtn = new ButtonControl("Git Fetch and Reset", "RUN");
-  auto gitpullbtn = new ButtonControl("Git Fetch and Reset", "실행");
+  auto gitpullbtn = new ButtonControl("Git Pull and Reset", "실행");
   QObject::connect(gitpullbtn, &ButtonControl::clicked, [=]() {
     //if (ConfirmationDialog::confirm("Process?", this)){
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)){
+    if (ConfirmationDialog::confirm("GitPull 실행하시겠습니까?", this)){
       std::system(gitpull);
       QTimer::singleShot(1000, []() { Hardware::reboot(); });
       }
   });
   list->addItem(gitpullbtn);
   
-  list->addItem(horizontal_line());
+  const char* gitpull_cancel = "/data/openpilot/gitpull_cancel.sh ''";
+  auto gitpull_cancelBtn = new ButtonControl("Git Pull 취소", "실행");
+  QObject::connect(gitpull_cancelBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("GitPull 이전 상태로 되돌립니다. 진행하시겠습니까?", this)) {
+      std::system(gitpull_cancel);
+    }
+  });
+  list->addItem(gitpullcanceltbtn);
   
   // Roaming toggle
   const bool roamingEnabled = params.getBool("GsmRoaming");
