@@ -332,6 +332,7 @@ QWidget * network_panel(QWidget * parent) {
     }
   });
   list->addItem(gitpullbtn);
+  layout->addWidget(horizontal_line());
 
   layout->addWidget(list);
   layout->addStretch(1);
