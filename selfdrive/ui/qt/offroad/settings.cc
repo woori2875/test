@@ -346,6 +346,7 @@ QWidget * network_panel(QWidget * parent) {
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->addWidget(new LabelControl("UI설정", ""));
+  layout->addWidget(new VolumeControl());
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
   layout->addWidget(new ParamControl("ShowCgearUI",
