@@ -74,15 +74,6 @@ public:
 };
 
 
-class VolumeControl : public AbstractControl {
-  Q_OBJECT
-
-public:
-  VolumeControl();
-
-class GitHash : public AbstractControl {
-  Q_OBJECT
-
 public:
   GitHash();
 
