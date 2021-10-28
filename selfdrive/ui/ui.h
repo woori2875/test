@@ -223,7 +223,20 @@ typedef struct UIScene {
   //gps
   int satelliteCount;
   float gpsAccuracy;
-
+ // opkr
+  bool touched2 = false;
+  float brightness_off;
+  int setbtn_count = 0;
+  int homebtn_count = 0;
+  cereal::ControlsState::Reader controls_state;
+  struct _screen
+  {
+     int  nTime;
+     int  autoScreenOff;
+     int  brightness;
+     int  nVolumeBoost = 0;
+     int  awake;
+  } scr;
 } UIScene;
 
 typedef struct UIState {
@@ -248,7 +261,8 @@ typedef struct UIState {
   bool show_cgear_ui;
   TouchState touch;
   int lock_on_anim_index;
-
+  
+  bool sidebar_view;//opkr
 } UIState;
 
 
@@ -294,7 +308,8 @@ private:
   FirstOrderFilter brightness_filter;
 
   QTimer *timer;
-
+  int sleep_time = -1; // opkr
+  
   void updateBrightness(const UIState &s);
   void updateWakefulness(const UIState &s);
 
