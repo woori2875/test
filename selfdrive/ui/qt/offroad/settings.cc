@@ -381,15 +381,6 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   });
   
   layout->addWidget(horizontal_line());
-  QPushButton *reboot_btn = new QPushButton("재부팅");
-  reboot_btn->setObjectName("reboot_btn");
-  power_layout->addWidget(reboot_btn);
-  QObject::connect(reboot_btn, &QPushButton::clicked, [=]() {
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
-      Hardware::reboot();
-    }
-  });
-  
   layout->addWidget(new LabelControl("UI설정", ""));
   layout->addWidget(new KRDateToggle());
   layout->addWidget(new KRTimeToggle());
