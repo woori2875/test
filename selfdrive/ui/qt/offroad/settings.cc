@@ -75,7 +75,7 @@ TogglesPanel::TogglesPanel(QWidget *parent) : ListWidget(parent) {
                                                  this);
   addItem(record_toggle);
   addItem(new ParamControl("EndToEndToggle",
-                                  "\U0001f96c ㅣLaneless시 적용 \U0001f96c",
+                                  "\U0001f96c Laneless시 적용 \U0001f96c",
                                   "In this mode openpilot will ignore lanelines and just drive how it thinks a human would.",
                                   "../assets/offroad/icon_road.png",
                                   this));
@@ -109,24 +109,13 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
 
   QHBoxLayout *reset_layout = new QHBoxLayout();
   reset_layout->setSpacing(30);
+  reset_layout->addWidget(horizontal_line());
 
   // reset calibration button
-  QPushButton *restart_openpilot_btn = new QPushButton("Soft restart");
-  restart_openpilot_btn->setStyleSheet("height: 120px;border-radius: 15px;background-color: #393939;");
-  reset_layout->addWidget(restart_openpilot_btn);
-  QObject::connect(restart_openpilot_btn, &QPushButton::released, [=]() {
-    emit closeSettings();
-    QTimer::singleShot(1000, []() {
-      Params().putBool("SoftRestartTriggered", true);
-    });
-  });
-
-  // reset calibration button
-  QPushButton *reset_calib_btn = new QPushButton("Reset Calibration");
+  QPushButton *reset_calib_btn = new QPushButton("캘리브레이션 및 학습값 초기화");
   reset_calib_btn->setStyleSheet("height: 120px;border-radius: 15px;background-color: #7fff00;");
-  reset_layout->addWidget(reset_calib_btn);
   QObject::connect(reset_calib_btn, &QPushButton::released, [=]() {
-    if (ConfirmationDialog::confirm("캘리브레이션 및 파라미터를 초기화 할까요?", this)) {
+    if (ConfirmationDialog::confirm("캘리브레이션 및 학습값을 초기화 할까요?", this)) {
       Params().remove("CalibrationParams");
       Params().remove("LiveParameters");
       emit closeSettings();
@@ -135,75 +124,11 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
       });
     }
   });
-
-  addItem(reset_layout);
+  addItem(reset_calib_btn);
   
   // Openpilot View
   addItem(new OpenpilotView());
   
-  
-
-  // offroad-only buttons
-
-  auto dcamBtn = new ButtonControl("운전자 모니터링 카메라 미리보기", "실행",
-                                   "운전자 모니터링 카메라를 미리보고 최적의 장착위치를 찾아보세요.");   
-  connect(dcamBtn, &ButtonControl::clicked, [=]() { emit showDriverView(); });
-
-  QString resetCalibDesc = "범위 (pitch) ↕ 5˚ (yaw) ↔ 4˚이내";
-  auto resetCalibBtn = new ButtonControl("캘리브레이션 초기화", "실행", resetCalibDesc);
-  connect(resetCalibBtn, &ButtonControl::clicked, [=]() {
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
-      Params().remove("CalibrationParams");
-    }
-  });
-  connect(resetCalibBtn, &ButtonControl::showDescription, [=]() {
-    QString desc = resetCalibDesc;
-    std::string calib_bytes = Params().get("CalibrationParams");
-    if (!calib_bytes.empty()) {
-      try {
-        AlignedBuffer aligned_buf;
-        capnp::FlatArrayMessageReader cmsg(aligned_buf.align(calib_bytes.data(), calib_bytes.size()));
-        auto calib = cmsg.getRoot<cereal::Event>().getLiveCalibration();
-        if (calib.getCalStatus() != 0) {
-          double pitch = calib.getRpyCalib()[1] * (180 / M_PI);
-          double yaw = calib.getRpyCalib()[2] * (180 / M_PI);
-          desc += QString("\n현재 캘리브레이션된 위치는 [ %2 %1° / %4 %3° ] 입니다.")
-                                .arg(QString::number(std::abs(pitch), 'g', 1), pitch > 0 ? "↑" : "↓",
-                                     QString::number(std::abs(yaw), 'g', 1), yaw > 0 ? "→" : "←");
-        }
-      } catch (kj::Exception) {
-        qInfo() << "캘리브레이션 상태가 유효하지않습니다";
-      }
-    }
-    resetCalibBtn->setDescription(desc);
-  });
-
-  ButtonControl *retrainingBtn = nullptr;
-  if (!params.getBool("Passive")) {
-    retrainingBtn = new ButtonControl("트레이닝 가이드", "실행", "Review the rules, features, and limitations of openpilot");
-    connect(retrainingBtn, &ButtonControl::clicked, [=]() {
-      if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
-        emit reviewTrainingGuide();
-      }
-    });
-  }
-
-  ButtonControl *regulatoryBtn = nullptr;
-  if (Hardware::TICI()) {
-    regulatoryBtn = new ButtonControl("Regulatory", "VIEW", "");
-    connect(regulatoryBtn, &ButtonControl::clicked, [=]() {
-      const std::string txt = util::read_file("../assets/offroad/fcc.html");
-      RichTextDialog::alert(QString::fromStdString(txt), this);
-    });
-  }
-
-  for (auto btn : {dcamBtn, resetCalibBtn, retrainingBtn, regulatoryBtn}) {
-    if (btn) {
-      connect(parent, SIGNAL(offroadTransition(bool)), btn, SLOT(setEnabled(bool)));
-      addItem(btn);
-    }
-  }
-
   QPushButton *panda_flashingBtn = new QPushButton("판다플래싱");
   panda_flashingBtn->setStyleSheet("height: 120px;border-radius: 15px;background-color: #07000A;");
   QObject::connect(panda_flashingBtn, &QPushButton::released, [=]() {
@@ -223,7 +148,7 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
   reboot_btn->setObjectName("reboot_btn");
   power_layout->addWidget(reboot_btn);
   QObject::connect(reboot_btn, &QPushButton::clicked, [=]() {
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
+    if (ConfirmationDialog::confirm("재부팅하시겠습니까?", this)) {
       Hardware::reboot();
     }
   });
@@ -232,7 +157,7 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
   poweroff_btn->setObjectName("poweroff_btn");
   power_layout->addWidget(poweroff_btn);
   QObject::connect(poweroff_btn, &QPushButton::clicked, [=]() {
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
+    if (ConfirmationDialog::confirm("종료하시겠습니까?", this)) {
       Hardware::poweroff();
     }
   });
@@ -248,6 +173,84 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
     #poweroff_btn:pressed { background-color: #FF2424; }
   )");
   addItem(power_layout);
+
+  // 소프트 재부팅만 
+  QPushButton *rebootsoft_Btn = new QPushButton("Soft 재부팅");
+  rebootsoft_Btn->setStyleSheet("height: 120px;border-radius: 15px;background-color: #7300a4;");
+  QObject::connect(rebootsoft_Btn, &QPushButton::released, [=]() {
+    if (ConfirmationDialog::confirm("Soft재부팅하시겠습니까?", this)) {
+      emit closeSettings();
+      QTimer::singleShot(1000, []() {
+        Params().putBool("SoftRestartTriggered", true);
+      });
+    }
+  });
+  addItem(rebootsoft_Btn); 
+  
+  QString resetCalibDesc = "오픈파일럿은 좌우로 4° 위아래로 5° 를 보정합니다. 그 이상의 경우 보정이 필요합니다.";
+  auto resetCalibBtn = new ButtonControl("리셋 캘리브레이션", "리셋", resetCalibDesc);
+  connect(resetCalibBtn, &ButtonControl::clicked, [=]() {
+    if (ConfirmationDialog::confirm("캘리브레이션을 초기화하시겠습니까?", this)) {
+      Params().remove("CalibrationParams");
+      emit closeSettings();
+      QTimer::singleShot(1000, []() {
+        Params().putBool("SoftRestartTriggered", true);
+      });
+    }
+  });
+  connect(resetCalibBtn, &ButtonControl::showDescription, [=]() {
+    QString desc = resetCalibDesc;
+    std::string calib_bytes = Params().get("CalibrationParams");
+    if (!calib_bytes.empty()) {
+      try {
+        AlignedBuffer aligned_buf;
+        capnp::FlatArrayMessageReader cmsg(aligned_buf.align(calib_bytes.data(), calib_bytes.size()));
+        auto calib = cmsg.getRoot<cereal::Event>().getLiveCalibration();
+        if (calib.getCalStatus() != 0) {
+          double pitch = calib.getRpyCalib()[1] * (180 / M_PI);
+          double yaw = calib.getRpyCalib()[2] * (180 / M_PI);
+          desc += QString(" 이온장착상태는 %1° %2 그리고 %3° %4.")
+                                .arg(QString::number(std::abs(pitch), 'g', 1), pitch > 0 ? "위로" : "아래로",
+                                     QString::number(std::abs(yaw), 'g', 1), yaw > 0 ? "우측으로" : "좌측으로");
+        }
+      } catch (kj::Exception) {
+        qInfo() << "invalid CalibrationParams";
+      }
+    }
+    resetCalibBtn->setDescription(desc);
+  });
+
+  // offroad-only buttons
+  auto dcamBtn = new ButtonControl("운전자 모니터링  미리보기", "실행",
+                                   "운전자 모니터링 카메라를 미리보고 최적의 장착위치를 찾아보세요.");   
+  connect(dcamBtn, &ButtonControl::clicked, [=]() { emit showDriverView(); });
+
+  ButtonControl *retrainingBtn = nullptr;
+  if (!params.getBool("Passive")) {
+    retrainingBtn = new ButtonControl("트레이닝 가이드", "실행", "Review the rules, features, and limitations of openpilot");
+    connect(retrainingBtn, &ButtonControl::clicked, [=]() {
+      if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
+        emit reviewTrainingGuide();
+      }
+    });
+  }
+
+  ButtonControl *regulatoryBtn = nullptr;
+  if (Hardware::TICI()) {
+    regulatoryBtn = new ButtonControl("주의사항", "VIEW", "");
+    connect(regulatoryBtn, &ButtonControl::clicked, [=]() {
+      const std::string txt = util::read_file("../assets/offroad/fcc.html");
+      RichTextDialog::alert(QString::fromStdString(txt), this);
+    });
+  }
+
+  for (auto btn : {resetCalibBtn, dcamBtn, retrainingBtn, regulatoryBtn}) {
+    if (btn) {
+      connect(parent, SIGNAL(offroadTransition(bool)), btn, SLOT(setEnabled(bool)));
+      addItem(btn);
+    }
+  }
+
 }
 
 SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
@@ -268,9 +271,9 @@ SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
   });
 
 
-  auto uninstallBtn = new ButtonControl("Uninstall " + getBrand(), "제거");
+  auto uninstallBtn = new ButtonControl("오픈파일럿 삭제 " + getBrand(), "삭제");
   connect(uninstallBtn, &ButtonControl::clicked, [=]() {
-    if (ConfirmationDialog::confirm("실행하시겠습니까?", this)) {
+    if (ConfirmationDialog::confirm("오픈파일럿을 삭하시겠습니까?", this)) {
       Params().putBool("DoUninstall", true);
     }
   });
@@ -346,10 +349,10 @@ QWidget * network_panel(QWidget * parent) {
 //Special menu
 SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->addWidget(new LabelControl("GIT PULL설정", ""));
   layout->addWidget(new PrebuiltToggle());
   layout->addWidget(horizontal_line());
   
+  layout->addWidget(new LabelControl("GIT PULL설정", ""));
   layout->addWidget(new GitHash()); 
   const char* gitpull = "/data/openpilot/gitpull.sh ''";
   auto gitpullBtn = new ButtonControl("Git Pull", "실행");
