@@ -228,7 +228,6 @@ typedef struct UIScene {
   float brightness_off;
   int setbtn_count = 0;
   int homebtn_count = 0;
-  cereal::ControlsState::Reader controls_state;
   struct _screen
   {
      int  nTime;
