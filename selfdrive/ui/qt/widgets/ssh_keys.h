@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QPushButton>
-#include <QSoundEffect> // opkr
+
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/qt/widgets/controls.h"
 
