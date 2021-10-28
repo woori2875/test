@@ -51,8 +51,6 @@ THERMAL_BANDS = OrderedDict({
 OFFROAD_DANGER_TEMP = 79.5 if TICI else 70.0
 
 prev_offroad_states: Dict[str, Tuple[bool, Optional[str]]] = {}
-  
-last_eon_fan_val = None
 
 prebuiltfile = '/data/openpilot/prebuilt' #프리빌트 생성
   
