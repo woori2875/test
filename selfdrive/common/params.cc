@@ -233,7 +233,7 @@ std::unordered_map<std::string, uint32_t> keys = {
     {"ShowCgearUI", PERSISTENT},
     {"KRDateShow", PERSISTENT},
     {"PutPrebuiltOn", PERSISTENT},
-    {"AutoScreenOff", PERSISTENT}
+    {"AutoScreenOff", PERSISTENT},
     {"KRTimeShow", PERSISTENT},
     {"SoftRestartTriggered", CLEAR_ON_MANAGER_START},
     {"IsOpenpilotViewEnabled", CLEAR_ON_MANAGER_START},
