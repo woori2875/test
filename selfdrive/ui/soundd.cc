@@ -5,13 +5,11 @@
 #include <QApplication>
 #include <QString>
 #include <QSoundEffect>
-#include <string>  //opkr
 
 #include "cereal/messaging/messaging.h"
 #include "selfdrive/common/util.h"
 #include "selfdrive/hardware/hw.h"
 #include "selfdrive/ui/ui.h"
-#include "selfdrive/common/params.h" //opkr
 
 // TODO: detect when we can't play sounds
 // TODO: detect when we can't display the UI
@@ -89,13 +87,7 @@ private slots:
       if (alert.sound != AudibleAlert::NONE) {
         auto &[s, loops] = sounds[alert.sound];
         s->setLoopCount(loops);
-        if ((std::stof(Params().get("UIVolumeBoost")) * 0.01) < -0.03) { //opkr
-          s->setVolume(0.0);
-        } else if ((std::stof(Params().get("UIVolumeBoost")) * 0.01) > 0.03) {
-          s->setVolume(std::stof(Params().get("UIVolumeBoost")) * 0.01);
-        } else {
-          s->setVolume(volume);
-        } //opkr
+        s->setVolume(volume);
         s->play();
       }
     }
