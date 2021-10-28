@@ -188,7 +188,7 @@ DevicePanel::DevicePanel(QWidget* parent) : ListWidget(parent) {
   addItem(rebootsoft_Btn); 
   
   QString resetCalibDesc = "오픈파일럿은 좌우로 4° 위아래로 5° 를 보정합니다. 그 이상의 경우 보정이 필요합니다.";
-  auto resetCalibBtn = new ButtonControl("리셋 캘리브레이션", "리셋", resetCalibDesc);
+  auto resetCalibBtn = new ButtonControl("캘리브레이션 초기화", "", resetCalibDesc);
   connect(resetCalibBtn, &ButtonControl::clicked, [=]() {
     if (ConfirmationDialog::confirm("캘리브레이션을 초기화하시겠습니까?", this)) {
       Params().remove("CalibrationParams");
@@ -352,7 +352,6 @@ SpecialPanel::SpecialPanel(QWidget* parent) : QWidget(parent) {
   layout->addWidget(new PrebuiltToggle());
   layout->addWidget(horizontal_line());
   
-  layout->addWidget(new LabelControl("GIT PULL설정", ""));
   layout->addWidget(new GitHash()); 
   const char* gitpull = "/data/openpilot/gitpull.sh ''";
   auto gitpullBtn = new ButtonControl("Git Pull", "실행");
